@@ -3,3 +3,6 @@ rich
 pystyle
 pyfiglet
 colorama
+flask
+flask-cors
+gunicorn
