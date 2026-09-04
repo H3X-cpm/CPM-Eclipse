@@ -17,7 +17,7 @@
 
 <div align="center">
   
-### 🎬 CPM Eclipse 
+### 𝑪𝑷𝑴 𝑬𝒄𝒍𝒊𝒑𝒔𝒆
 
 ![CPM Eclipse Banner](images/gemini-image-2_Professional_graphic_design_3D_render_make_me_a_car_parking_multiplayer_banner_i-0.jpg)
 
@@ -79,7 +79,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/CPM-Eclipse.git
+git clone https://github.com/H3X-cpm/CPM-Eclipse.git
 
 # Navigate to folder
 cd CPM-Eclipse
@@ -101,7 +101,7 @@ pkg install python git -y
 pip install -r requirements.txt
 
 # Clone and run
-git clone https://github.com/YOUR_USERNAME/CPM-Eclipse.git
+git clone https://github.com/H3X-cpm/CPM-Eclipse.git
 cd CPM-Eclipse
 chmod +x eclipse.sh
 ./eclipse.sh
@@ -110,7 +110,7 @@ chmod +x eclipse.sh
 ### Method 3: One-Line Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/CPM-Eclipse.git && cd CPM-Eclipse && chmod +x install.sh && ./install.sh && ./eclipse.sh
+git clone https://github.com/H3X-cpm/CPM-Eclipse.git && cd CPM-Eclipse && chmod +x install.sh && ./install.sh && ./eclipse.sh
 ```
 
 ---
@@ -228,7 +228,7 @@ pip install -r requirements.txt
 ---
 
 ## 📜 License
-
+Font steal codes or legal action will be taken.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
@@ -240,7 +240,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | Role | Name |
 |------|------|
 | 👨‍💻 **Developer** | H3X |
-| 🤝 **Contributors** | Community |
+| 🤝 **Contributors** | Sami|
 | ⭐ **Special Thanks** | All supporters |
 
 </div>
