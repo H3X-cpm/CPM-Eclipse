@@ -18,11 +18,11 @@
 
 <div align="center">
   
-### 🎬 CPM Eclipse Banner
+### 🎬 CPM Eclipse 
 
 ![CPM Eclipse Banner](images/gemini-image-2_Professional_graphic_design_3D_render_make_me_a_car_parking_multiplayer_banner_i-0.jpg)
 
-*Professional banner for CPM Eclipse tool*
+
 
 </div>
 
@@ -197,32 +197,6 @@ pip install -r requirements.txt
 </details>
 
 ---
-
-## 📊 Project Structure
-
-```
-CPM-Eclipse/
-├── 📁 .github/          # GitHub templates
-├── 📁 modules/          # Python modules
-│   ├── auth.py          # Authentication
-│   ├── points.py        # Points system
-│   └── cheats.py        # Cheat functions
-├── 📁 assets/           # Banners & assets
-├── 📁 docs/             # Documentation
-├── 📁 scripts/          # Utility scripts
-├── 🚀 eclipse.sh        # Main launcher
-├── 🔧 install.sh        # Installation script
-├── 🐍 cpmeclipse.py     # Core cheat module
-├── 🐍 main.py           # Main entry point
-├── 📋 car_ids.json      # Car IDs database
-├── ⚙️ config.example.json # Config template
-├── 📦 requirements.txt  # Python dependencies
-├── 📄 version.txt       # Version info
-├── 📝 CHANGELOG.md      # Update history
-├── 📖 README.md         # Documentation
-├── 📜 LICENSE           # MIT License
-└── 🔒 .gitignore        # Git ignore file
-```
 
 ---
 
