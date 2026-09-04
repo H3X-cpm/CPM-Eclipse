@@ -198,31 +198,6 @@ pip install -r requirements.txt
 
 ---
 
-## 📊 Project Structure
-
-```
-CPM-Eclipse/
-├── 📁 .github/          # GitHub templates
-├── 📁 modules/          # Python modules
-│   ├── auth.py          # Authentication
-│   ├── points.py        # Points system
-│   └── cheats.py        # Cheat functions
-├── 📁 assets/           # Banners & assets
-├── 📁 docs/             # Documentation
-├── 📁 scripts/          # Utility scripts
-├── 🚀 eclipse.sh        # Main launcher
-├── 🔧 install.sh        # Installation script
-├── 🐍 cpmeclipse.py     # Core cheat module
-├── 🐍 main.py           # Main entry point
-├── 📋 car_ids.json      # Car IDs database
-├── ⚙️ config.example.json # Config template
-├── 📦 requirements.txt  # Python dependencies
-├── 📄 version.txt       # Version info
-├── 📝 CHANGELOG.md      # Update history
-├── 📖 README.md         # Documentation
-├── 📜 LICENSE           # MIT License
-└── 🔒 .gitignore        # Git ignore file
-```
 
 ---
 
@@ -233,7 +208,7 @@ CPM-Eclipse/
 | Contact | Method |
 |---------|--------|
 | 💬 **Telegram** | [@H3X_cpm](https://t.me/H3X_cpm) |
-| 🐛 **Issues** | [GitHub Issues](https://github.com/YOUR_USERNAME/CPM-Eclipse/issues) |
+| 🐛 **Issues** | [GitHub Issues](https://github.com/H3X-cpm/CPM-Eclipse/issues) |
 
 </div>
 
