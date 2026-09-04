@@ -1,0 +1,6 @@
+CPM Eclipse v1.0.0
+Release Date: 2026-12-14
+Author: H3X
+Codename: Eclipse
+Python Required: 3.10+
+Status: Stable
