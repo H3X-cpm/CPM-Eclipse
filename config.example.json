@@ -3,7 +3,7 @@
     "admin_id": "6386858720",
     "admin_username": "@H3X_cpm",
     "admin_secret_key": "th141206!",
-    "api_url": "https://YOUR_USERNAME.pythonanywhere.com",
+    "api_url": "https://cpm-eclipse.onrender.com/",
     "version": "4.8.2",
     "debug_mode": false,
     "auto_update": true,
