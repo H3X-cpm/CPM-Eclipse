@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌙 CPM Eclipse
+# 🌙 𝑪𝑷𝑴 𝑬𝒄𝒍𝒊𝒑𝒔𝒆 🌙
 
 ### Advanced Car Parking Multiplayer Tool
 
