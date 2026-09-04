@@ -14,7 +14,6 @@
 
 ---
 
-## 📸 Demo
 
 <div align="center">
   
