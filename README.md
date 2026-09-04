@@ -18,13 +18,11 @@
 
 <div align="center">
   
-### 🎬 CPM Eclipse in Action
+### 🎬 CPM Eclipse Banner
 
-<video src="images/18e721bb055048eaa3db40bf6592119e%20(1).mp4" controls width="800">
-  Your browser does not support the video tag.
-</video>
+![CPM Eclipse Banner](images/gemini-image-2_Professional_graphic_design_3D_render_make_me_a_car_parking_multiplayer_banner_i-0.jpg)
 
-*Live demo of CPM Eclipse tool in Termux*
+*Professional banner for CPM Eclipse tool*
 
 </div>
 
