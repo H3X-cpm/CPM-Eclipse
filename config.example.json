@@ -1,1 +1,20 @@
-
+{
+    "bot_token": "8964642365:AAEsqDeuBtgTnNf-bCB6PlcnIR09wu9h_tA",
+    "admin_id": "6386858720",
+    "admin_username": "@H3X_cpm",
+    "admin_secret_key": "th141206!",
+    "api_url": "https://YOUR_USERNAME.pythonanywhere.com",
+    "version": "4.8.2",
+    "debug_mode": false,
+    "auto_update": true,
+    "settings": {
+        "max_money": 500000000,
+        "max_coins": 500000
+    },
+    "telegram": {
+        "channel": "@cpmeclipse",
+        "channel_link": "https://t.me/cpmeclipse",
+        "group": "CPMEclipseChannel",
+        "bot": "@CPMECLIPSEBOT"
+    }
+}
