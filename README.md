@@ -20,7 +20,7 @@
   
 ### 🎬 CPM Eclipse in Action
 
-<video src="https://github.com/user-attachments/assets/18e721bb-0550-48ea-a3db-40bf6592119e" controls width="800">
+<video src="images/18e721bb055048eaa3db40bf6592119e%20(1).mp4" controls width="800">
   Your browser does not support the video tag.
 </video>
 
