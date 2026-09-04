@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-yellow.svg)](https://python.org)
 [![Termux](https://img.shields.io/badge/Termux-F5D04E?style=flat&logo=android&logoColor=black)](https://termux.com)
-[![GitHub stars](https://img.shields.io/github/stars/YOUR_USERNAME/CPM-Eclipse.svg?style=social)](https://github.com/YOUR_USERNAME/CPM-Eclipse)
+[![GitHub stars](https://img.shields.io/github/stars/H3X-cpm/CPM-Eclipse.svg?style=social)](https://github.com/H3X-cpm/CPM-Eclipse)
 
 </div>
 
