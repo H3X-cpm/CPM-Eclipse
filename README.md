@@ -213,30 +213,6 @@ pip install -r requirements.txt
 
 ---
 
-## 👨‍💻 Development
-
-### Building from Source
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/CPM-Eclipse.git
-cd CPM-Eclipse
-
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-python -m pytest tests/
-```
-
-### Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
 ---
 
 ## ⚠️ Disclaimer
