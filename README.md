@@ -18,11 +18,13 @@
 
 <div align="center">
   
-### 🎬 Animated Terminal Demo
+### 🎬 CPM Eclipse in Action
 
-![CPM Eclipse Demo](https://via.placeholder.com/800x400/0a0a0a/00ff00?text=CPM+Eclipse+Demo+GIF)
+<video src="https://github.com/user-attachments/assets/18e721bb-0550-48ea-a3db-40bf6592119e" controls width="800">
+  Your browser does not support the video tag.
+</video>
 
-*Coming Soon: Animated demo of the tool in action*
+*Live demo of CPM Eclipse tool in Termux*
 
 </div>
 
@@ -198,6 +200,31 @@ pip install -r requirements.txt
 
 ---
 
+## 📊 Project Structure
+
+```
+CPM-Eclipse/
+├── 📁 .github/          # GitHub templates
+├── 📁 modules/          # Python modules
+│   ├── auth.py          # Authentication
+│   ├── points.py        # Points system
+│   └── cheats.py        # Cheat functions
+├── 📁 assets/           # Banners & assets
+├── 📁 docs/             # Documentation
+├── 📁 scripts/          # Utility scripts
+├── 🚀 eclipse.sh        # Main launcher
+├── 🔧 install.sh        # Installation script
+├── 🐍 cpmeclipse.py     # Core cheat module
+├── 🐍 main.py           # Main entry point
+├── 📋 car_ids.json      # Car IDs database
+├── ⚙️ config.example.json # Config template
+├── 📦 requirements.txt  # Python dependencies
+├── 📄 version.txt       # Version info
+├── 📝 CHANGELOG.md      # Update history
+├── 📖 README.md         # Documentation
+├── 📜 LICENSE           # MIT License
+└── 🔒 .gitignore        # Git ignore file
+```
 
 ---
 
@@ -208,7 +235,7 @@ pip install -r requirements.txt
 | Contact | Method |
 |---------|--------|
 | 💬 **Telegram** | [@H3X_cpm](https://t.me/H3X_cpm) |
-| 🐛 **Issues** | [GitHub Issues](https://github.com/H3X-cpm/CPM-Eclipse/issues) |
+| 🐛 **Issues** | [GitHub Issues](https://github.com/YOUR_USERNAME/CPM-Eclipse/issues) |
 
 </div>
 
