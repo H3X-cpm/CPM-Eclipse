@@ -86,23 +86,28 @@ do_login() {
     # Send login request via Telegram bot with inline keyboard
     python3 -c "
 import requests
+import json
 
 bot_token = '$BOT_TOKEN'
 user_id = '$USER_ID'
 login_code = '$LOGIN_CODE'
 
 msg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+
+# Create the inline keyboard
+keyboard = {
+    'inline_keyboard': [
+        [
+            {'text': '✅ Confirm Login', 'callback_data': 'login_' + login_code},
+            {'text': '❌ Deny', 'callback_data': 'login_deny_' + login_code}
+        ]
+    ]
+}
+
 msg_data = {
     'chat_id': user_id,
-    'text': f'🔐 Login Request\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:',
-    'reply_markup': {
-        'inline_keyboard': [
-            [
-                {'text': '✅ Confirm Login', 'callback_data': f'login_{login_code}'},
-                {'text': '❌ Deny', 'callback_data': f'login_deny_{login_code}'}
-            ]
-        ]
-    }
+    'text': '🔐 Login Request\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:',
+    'reply_markup': json.dumps(keyboard)
 }
 
 response = requests.post(msg_url, data=msg_data)
