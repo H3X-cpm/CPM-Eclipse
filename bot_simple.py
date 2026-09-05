@@ -7,7 +7,7 @@ import json
 import os
 import datetime
 
-BOT_TOKEN = "8964642365:AAERc2itmrQCrWjELtBp90XCL3_hjLTQn0k"
+BOT_TOKEN = "8964642365:AAH2U6Uyfd1oIAMVa4GsysrbrUlT558Y_N8"
 ADMIN_ID = "6386858720"
 DATA_FILE = "users.json"
 
