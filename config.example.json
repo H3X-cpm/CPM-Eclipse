@@ -7,14 +7,42 @@
     "version": "4.8.2",
     "debug_mode": false,
     "auto_update": true,
+    "channel": "@cpmeclipse",
+    "channel_link": "https://t.me/cpmeclipse",
+    "community": "@cpmeclipse_chat",
+    "community_link": "https://t.me/cpmeclipse_chat",
+    "support": "@H3X_cpm",
+    "payment": {
+        "paypal": "PayPal.me/Th141206",
+        "bitcoin": "bc1qn3m8l7gv5sxwcmdy3q55q074vkw2yd3v4tmsnk",
+        "ethereum": "0x3f460457Bd0e38572Df58f492651F9Ee07aF2D6D"
+    },
+    "tiers": {
+        "bronze": {
+            "price": 1.99,
+            "points": 200,
+            "duration": "1 month"
+        },
+        "silver": {
+            "price": 3.99,
+            "points": 400,
+            "duration": "2 months"
+        },
+        "gold": {
+            "price": 5.99,
+            "points": 600,
+            "duration": "4 months"
+        },
+        "platinum": {
+            "price": 14.99,
+            "points": 2000,
+            "duration": "6 months"
+        }
+    },
     "settings": {
         "max_money": 500000000,
-        "max_coins": 500000
-    },
-    "telegram": {
-        "channel": "@cpmeclipse",
-        "channel_link": "https://t.me/cpmeclipse",
-        "group": "CPMEclipseChannel",
-        "bot": "@CPMECLIPSEBOT"
+        "max_coins": 500000,
+        "max_clones": 10,
+        "session_timeout": 86400
     }
 }
