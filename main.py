@@ -1780,7 +1780,8 @@ if __name__ == "__main__":
                         console.print("thanks for using CPM Eclipse")
                         sys.exit(0)
                     else:
-                        continue                else:
+                        continue
+                else:
                     console.print("[bold red]FAILED[/bold red]")
                     console.print("[bold red]Please Try Again[/bold red]")
                     sleep(2)
