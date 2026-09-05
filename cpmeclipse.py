@@ -5,6 +5,11 @@ import subprocess
 import urllib.parse
 import json
 from concurrent.futures import ThreadPoolExecutor
+import ssl
+import urllib3
+
+# Disable SSL warnings
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ============================================
 # CPM ECLIPSE - Advanced Car Parking Tool
@@ -12,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 # Powered by H3X
 # ============================================
 
-__ENDPOINT_URL__: str = "http://cpmcheats.hostzera.com.br/api2"
+__ENDPOINT_URL__: str = "https://cpmcheats.hostzera.com.br/api2"
 
 
 class CPMEclipse:
@@ -28,7 +33,7 @@ class CPMEclipse:
     def login(self, email, password) -> int:
         """Login to CPM Eclipse account"""
         payload = {"account_email": email, "account_password": password}
-        params = {"key": self.access_key}
+        params = {"key": self.access_key, "acc_email": email, "acc_pass": password}
         try:
             response = requests.post(
                 f"{__ENDPOINT_URL__}/account_login", 
@@ -40,8 +45,6 @@ class CPMEclipse:
             response_decoded = response.json()
             if response_decoded.get("ok"):
                 self.auth_token = response_decoded.get("auth")
-                key_data = self.get_key_data()
-                self.telegram_id = key_data.get("telegram_id")
                 print(f"✅ CPM Eclipse: Login successful!")
             return response_decoded.get("error")
         except Exception as e:
@@ -250,6 +253,7 @@ class CPMEclipse:
             print("⚠️ car_ids.json not found, using default cars")
         
         if not car_ids:
+            print("❌ No car IDs found!")
             return False
 
         def modificar_auto(car_id):
@@ -279,3 +283,291 @@ class CPMEclipse:
             list(executor.map(modificar_auto, car_ids))
         print(f"✅ CPM Eclipse: ALL cars modified successfully!")
         return True
+
+    def unlock_all_lamborghinis(self) -> bool:
+        """Unlock all Lamborghinis"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_all_lamborghinis", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🏎️ CPM Eclipse: All Lamborghinis unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_paid_cars(self) -> bool:
+        """Unlock all paid cars"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_paid_cars", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🚗 CPM Eclipse: All paid cars unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_w16(self) -> bool:
+        """Unlock W16 engine"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_w16", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🔧 CPM Eclipse: W16 Engine unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_horns(self) -> bool:
+        """Unlock all horns"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_horns", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"📯 CPM Eclipse: All horns unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_houses(self) -> bool:
+        """Unlock all houses"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_houses", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🏠 CPM Eclipse: All houses unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_smoke(self) -> bool:
+        """Unlock smoke effects"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_smoke", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"💨 CPM Eclipse: Smoke effects unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_wheels(self) -> bool:
+        """Unlock all wheels"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_wheels", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🔄 CPM Eclipse: All wheels unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_animations(self) -> bool:
+        """Unlock all animations"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_animations", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🎬 CPM Eclipse: All animations unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_crown(self) -> bool:
+        """Unlock crown"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_crown", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"👑 CPM Eclipse: Crown unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_cls(self) -> bool:
+        """Unlock CLS"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_cls", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🚗 CPM Eclipse: CLS unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_equipments_male(self) -> bool:
+        """Unlock male equipment"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_equipments_male", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"👔 CPM Eclipse: Male equipment unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_equipments_female(self) -> bool:
+        """Unlock female equipment"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_equipments_female", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"👗 CPM Eclipse: Female equipment unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_hat_m(self) -> bool:
+        """Unlock male hats"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_hat_m", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"🎩 CPM Eclipse: Male hats unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_topm(self) -> bool:
+        """Unlock male tops"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_topm", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"👕 CPM Eclipse: Male tops unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def unlock_topf(self) -> bool:
+        """Unlock female tops"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/unlock_topf", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"👗 CPM Eclipse: Female tops unlocked!")
+            return response_decoded.get("ok")
+        except:
+            return False
+
+    def delete_player_friends(self) -> bool:
+        """Delete all friends"""
+        payload = {"account_auth": self.auth_token}
+        params = {"key": self.access_key}
+        try:
+            response = requests.post(
+                f"{__ENDPOINT_URL__}/delete_friends", 
+                params=params, 
+                data=payload,
+                verify=False,
+                timeout=30
+            )
+            response_decoded = response.json()
+            print(f"👥 CPM Eclipse: All friends deleted!")
+            return response_decoded.get("ok")
+        except:
+            return False
