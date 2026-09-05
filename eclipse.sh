@@ -48,7 +48,7 @@ is_logged_in() {
 }
 
 # ============================================
-# TELEGRAM LOGIN FUNCTION
+# SIMPLE LOGIN FUNCTION (NO BOT CONFIRMATION)
 # ============================================
 
 do_login() {
@@ -70,7 +70,7 @@ do_login() {
         fi
     else
         echo -e "${YELLOW}📝 Enter your Telegram User ID:${NC}"
-        echo -e "${CYAN}💡 Send /start to @CPM_Eclipse_Bot to get your ID${NC}"
+        echo -e "${CYAN}💡 Send /start to @CPM_Eclipse_Bot to register${NC}"
         echo -ne "${GREEN}➜ User ID: ${NC}"
         read -r USER_ID
         echo "$USER_ID" > "$USER_ID_FILE"
@@ -78,74 +78,63 @@ do_login() {
     fi
     
     echo ""
-    echo -e "${CYAN}📤 Sending login request to Telegram...${NC}"
+    echo -e "${CYAN}🔐 Checking if user is registered...${NC}"
     
-    # Generate a random login code
-    LOGIN_CODE=$(date +%s | sha256sum | head -c 8)
-    
-    # Send login request via Telegram bot with inline keyboard
-    python3 -c "
-import requests
+    # Check if user exists in users.json
+    RESULT=$(python3 -c "
 import json
-
-bot_token = '$BOT_TOKEN'
+import os
 user_id = '$USER_ID'
-login_code = '$LOGIN_CODE'
-
-msg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
-
-# Create the inline keyboard
-keyboard = {
-    'inline_keyboard': [
-        [
-            {'text': '✅ Confirm Login', 'callback_data': 'login_' + login_code},
-            {'text': '❌ Deny', 'callback_data': 'login_deny_' + login_code}
-        ]
-    ]
-}
-
-msg_data = {
-    'chat_id': user_id,
-    'text': '🔐 Login Request\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:',
-    'reply_markup': json.dumps(keyboard)
-}
-
-response = requests.post(msg_url, data=msg_data)
-result = response.json()
-
-if result.get('ok'):
-    print('SUCCESS')
+data_file = 'users.json'
+if os.path.exists(data_file):
+    with open(data_file, 'r') as f:
+        users = json.load(f)
+    if user_id in users:
+        print('FOUND')
+        print('USERNAME: ' + users[user_id].get('username', 'Unknown'))
+        print('POINTS: ' + str(users[user_id].get('points', 0)))
+    else:
+        print('NOT_FOUND')
 else:
-    print('FAILED: ' + str(result))
-"
+    print('NO_FILE')
+")
     
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✅ Login request sent!${NC}"
-        echo -e "${YELLOW}💡 Check your Telegram for a login confirmation!${NC}"
-        echo ""
-        echo -e "${CYAN}⏳ Waiting for confirmation...${NC}"
+    # Check the result
+    if echo "$RESULT" | grep -q "FOUND"; then
+        USERNAME=$(echo "$RESULT" | grep "USERNAME:" | cut -d' ' -f2-)
+        POINTS=$(echo "$RESULT" | grep "POINTS:" | cut -d' ' -f2)
         
-        # Wait for user to confirm on Telegram
-        for i in {1..30}; do
-            sleep 1
-            if [ -f "/tmp/login_$LOGIN_CODE.confirmed" ]; then
-                echo -e "${GREEN}✅ Login confirmed via Telegram!${NC}"
-                rm -f "/tmp/login_$LOGIN_CODE.confirmed"
-                echo "$USER_ID" > "$USER_ID_FILE"
-                echo '{"logged_in": true}' > "$LOGIN_FILE"
-                return 0
-            fi
-            echo -ne "${CYAN}.${NC}"
-        done
-        
+        echo -e "${GREEN}✅ Login successful!${NC}"
+        echo -e "${CYAN}👤 User: @$USERNAME${NC}"
+        echo -e "${CYAN}⭐ Points: $POINTS${NC}"
         echo ""
-        echo -e "${RED}❌ Login timeout! Please try again.${NC}"
+        
+        # Create login session
+        echo "$USER_ID" > "$USER_ID_FILE"
+        echo '{"logged_in": true}' > "$LOGIN_FILE"
+        echo -e "${GREEN}Press Enter to continue...${NC}"
+        read -r
+        return 0
+        
+    elif echo "$RESULT" | grep -q "NOT_FOUND"; then
+        echo -e "${RED}❌ User not found!${NC}"
+        echo -e "${YELLOW}💡 Send /start to @CPM_Eclipse_Bot to register${NC}"
+        echo -e "${YELLOW}💡 Then try logging in again${NC}"
+        rm -f "$LOGIN_FILE"
+        echo ""
+        echo -e "${GREEN}Press Enter to continue...${NC}"
+        read -r
+        return 1
+        
     else
-        echo -e "${RED}❌ Failed to send login request.${NC}"
-        echo -e "${YELLOW}💡 Make sure the bot is running.${NC}"
+        echo -e "${RED}❌ No users registered yet!${NC}"
+        echo -e "${YELLOW}💡 Send /start to @CPM_Eclipse_Bot to register${NC}"
+        rm -f "$LOGIN_FILE"
+        echo ""
+        echo -e "${GREEN}Press Enter to continue...${NC}"
+        read -r
+        return 1
     fi
-    
-    return 1
 }
 
 # ============================================
