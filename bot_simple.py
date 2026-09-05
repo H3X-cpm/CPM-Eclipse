@@ -49,29 +49,38 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 async def login_confirm(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle login confirmation button - SIMPLE VERSION"""
     query = update.callback_query
     await query.answer()
     
+    # Get the login code from the callback data
     code = query.data.replace("login_", "")
     
-    # WRITE THE FILE SO TERMUX CAN SEE IT
-    with open(f"/data/data/com.termux/files/home/tmp/login_{code}.confirmed", "w") as f:
+    # Create the confirmation file - EXACT path eclipse.sh expects
+    file_path = f"/tmp/login_{code}.confirmed"
+    with open(file_path, "w") as f:
         f.write("confirmed")
     
+    # Send confirmation message
     await query.edit_message_text(
-        "✅ Login Confirmed! 🎉\n\n"
-        "You can now use Eclipse in Termux."
+        "✅ **Login Confirmed!** 🎉\n\n"
+        "You have successfully logged in to Eclipse.\n"
+        "🔐 Your session is now active.\n\n"
+        "You can now use the tool in Termux."
     )
+    
+    # Also print to console so we know it worked
+    print(f"✅ Login confirmed for code: {code}")
 
 async def login_deny(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    await query.edit_message_text("❌ Login Denied.")
+    await query.edit_message_text("❌ **Login Denied**\n\nIf this wasn't you, your account is safe.")
 
 async def add_points(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
     if user_id != ADMIN_ID:
-        await update.message.reply_text("Admin only.")
+        await update.message.reply_text("❌ Admin only command.")
         return
     if not context.args or len(context.args) < 2:
         await update.message.reply_text("Usage: /addpoints USER_ID AMOUNT")
@@ -88,7 +97,7 @@ async def add_points(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     users[target]['points'] = users[target].get('points', 0) + amount
     save_users(users)
-    await update.message.reply_text(f"✅ Added {amount} points!")
+    await update.message.reply_text(f"✅ Added {amount} points to @{users[target]['username']}")
 
 async def balance(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
@@ -113,7 +122,7 @@ async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     users = load_users()
     if not users:
-        await update.message.reply_text("No users.")
+        await update.message.reply_text("No users yet.")
         return
     msg = "📊 Registered Users\n━━━━━━━━━━━━━━━━━━━━━━\n"
     for uid, data in users.items():
@@ -129,9 +138,6 @@ def main():
     app.add_handler(CommandHandler("listusers", list_users))
     app.add_handler(CallbackQueryHandler(login_confirm, pattern="login_"))
     app.add_handler(CallbackQueryHandler(login_deny, pattern="login_deny_"))
-    
-    # Create tmp folder
-    os.makedirs("/data/data/com.termux/files/home/tmp", exist_ok=True)
     
     print("🌙 Eclipse Bot is running!")
     print("📱 Open Telegram and send /start")
