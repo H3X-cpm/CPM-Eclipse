@@ -180,7 +180,7 @@ def main():
     app.add_handler(CommandHandler("balance", balance))
     app.add_handler(CommandHandler("listusers", list_users))
     
-    # THIS IS THE IMPORTANT LINE FOR LOGIN
+    # Login confirmation handlers
     app.add_handler(CallbackQueryHandler(login_confirm, pattern="login_"))
     app.add_handler(CallbackQueryHandler(login_deny, pattern="login_deny_"))
     
