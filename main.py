@@ -132,7 +132,7 @@ import datetime
 # ============================================
 from cpmeclipse import CPMEclipse
 
-__CHANNEL_USERNAME__ = "H3X_cpm"
+__CHANNEL_USERNAME__ = "cpmeclipse"
 __GROUP_USERNAME__ = "CPMEclipseChannel"
 __BOT_RICK_NAME__ = "@CPMECLIPSEBOT"
 _CHEATS_NAME = "CPM Eclipse"
@@ -355,7 +355,7 @@ if __name__ == "__main__":
         acc_access_key = prompt_valid_value(
             "[?] ACCESS KEY", "Access Key", password=False
         )
-        console.print("[%] TRYING TO LOGIN: ", end=None)
+        console.print("[%] TRYING TO LOGIN: ", end="")
         cpm = CPMEclipse(acc_access_key)
         login_response = cpm.login(acc_email, acc_password)
         if login_response != 0:
@@ -501,23 +501,33 @@ if __name__ == "__main__":
                 console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
                 sys.exit(0)
                 
-            elif service == 1:  # Increase Money
-                console.print("[bold yellow][bold white][?][/bold white] Insert how much money do you want[/bold yellow]")
+            elif service == 1:
+                console.print(
+                    "[bold yellow][bold white][?][/bold white] Insert how much money do you want[/bold yellow]"
+                )
                 amount = IntPrompt.ask("[?] Amount")
-                console.print("[%] Saving your data: ", end=None)
+                console.print("[%] Saving your data: ", end="")
                 if amount > 0 and amount <= 500000000:
                     if cpm.set_player_money(amount):
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                        console.print("[bold green]======================================[/bold green]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold green]======================================[/bold green]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
                     else:
                         console.print("[bold red]FAILED (✘)[/bold red]")
-                        console.print("[bold red]please try again later! (✘)[/bold red]")
+                        console.print(
+                            "[bold red]please try again later! (✘)[/bold red]"
+                        )
                         sleep(2)
                         continue
                 else:
@@ -526,17 +536,25 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 2:  # Increase Coins
-                console.print("[bold yellow][bold white][?][/bold white] Insert how much coins do you want[/bold yellow]")
+            elif service == 2:
+                console.print(
+                    "[bold yellow][bold white][?][/bold white] Insert how much coins do you want[/bold yellow]"
+                )
                 amount = IntPrompt.ask("[?] Amount")
                 print("[ % ] Saving your data: ", end="")
                 if amount > 0 and amount <= 500000:
                     if cpm.set_player_coins(amount):
                         console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                        console.print("[bold green]======================================[/bold green]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold green]======================================[/bold green]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
@@ -547,21 +565,35 @@ if __name__ == "__main__":
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] 'Please use valid values[/bold yellow]")
+                    console.print(
+                        "[bold yellow] 'Please use valid values[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 3:  # King Rank
-                console.print("[bold red][!] Note:[/bold red]: if the king rank doesn't appear in game, close it and open few times.", end=None)
-                console.print("[bold red][!] Note:[/bold red]: please don't do King Rank on same account twice.", end=None)
+            elif service == 3:
+                console.print(
+                    "[bold red][!] Note:[/bold red]: if the king rank doesn't appear in game, close it and open few times.",
+                    end="",
+                )
+                console.print(
+                    "[bold red][!] Note:[/bold red]: please don't do King Rank on same account twice.",
+                    end="",
+                )
                 sleep(2)
-                console.print("[%] Giving you a King Rank: ", end=None)
+                console.print("[%] Giving you a King Rank: ", end="")
                 if cpm.set_player_rank():
                     console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                    console.print("[bold yellow] '======================================[/bold yellow]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold yellow] '======================================[/bold yellow]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -571,17 +603,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 4:  # Change ID
+            elif service == 4:
                 console.print("[bold yellow] '[?] Enter your new ID[/bold yellow]")
                 new_id = Prompt.ask("[?] ID")
-                console.print("[%] Saving your data: ", end=None)
-                if len(new_id) >= 8 and len(new_id) <= 999999999999999999999999999999 and (" " in new_id) == False:
+                console.print("[%] Saving your data: ", end="")
+                if len(new_id) >= 8 and (" " in new_id) == False:
                     if cpm.set_player_localid(new_id.upper()):
                         console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                        console.print("[bold yellow] '======================================[/bold yellow]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold yellow] '======================================[/bold yellow]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
@@ -596,17 +634,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 5:  # Change Name
+            elif service == 5:
                 console.print("[bold yellow] '[?] Enter your new Name[/bold yellow]")
                 new_name = Prompt.ask("[?] Name")
-                console.print("[%] Saving your data: ", end=None)
-                if len(new_name) >= 0 and len(new_name) <= 999999999:
+                console.print("[%] Saving your data: ", end="")
+                if len(new_name) >= 0:
                     if cpm.set_player_name(new_name):
                         console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                        console.print("[bold yellow] '======================================[/bold yellow]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold yellow] '======================================[/bold yellow]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
@@ -617,21 +661,31 @@ if __name__ == "__main__":
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] 'Please use valid values[/bold yellow]")
+                    console.print(
+                        "[bold yellow] 'Please use valid values[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 6:  # Change Name Rainbow
-                console.print("[bold yellow] '[?] Enter your new Rainbow Name[/bold yellow]")
+            elif service == 6:
+                console.print(
+                    "[bold yellow] '[?] Enter your new Rainbow Name[/bold yellow]"
+                )
                 new_name = Prompt.ask("[?] Name")
-                console.print("[%] Saving your data: ", end=None)
-                if len(new_name) >= 0 and len(new_name) <= 999999999:
+                console.print("[%] Saving your data: ", end="")
+                if len(new_name) >= 0:
                     if cpm.set_player_name(rainbow_gradient_string(new_name)):
                         console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                        console.print("[bold yellow] '======================================[/bold yellow]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold yellow] '======================================[/bold yellow]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
@@ -642,18 +696,26 @@ if __name__ == "__main__":
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] 'Please use valid values[/bold yellow]")
+                    console.print(
+                        "[bold yellow] 'Please use valid values[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 7:  # Number Plates
-                console.print("[%] Giving you a Number Plates: ", end=None)
+            elif service == 7:
+                console.print("[%] Giving you a Number Plates: ", end="")
                 if cpm.set_player_plates():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -663,34 +725,56 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 8:  # Account Delete
-                console.print("[bold yellow] '[!] After deleting your account there is no going back !![/bold yellow]")
-                answ = Prompt.ask("[?] Do You want to Delete this Account ?!", choices=["y", "n"], default="n")
+            elif service == 8:
+                console.print(
+                    "[bold yellow] '[!] After deleting your account there is no going back !![/bold yellow]"
+                )
+                answ = Prompt.ask(
+                    "[?] Do You want to Delete this Account ?!",
+                    choices=["y", "n"],
+                    default="n",
+                )
                 if answ == "y":
                     cpm.delete()
                     console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                    console.print("[bold yellow] '======================================[/bold yellow]")
-                    console.print(f"[bold yellow] Thank You for using CPM Eclipse, please join our telegram channel: @{__CHANNEL_USERNAME__}[/bold yellow]")
+                    console.print(
+                        "[bold yellow] '======================================[/bold yellow]"
+                    )
+                    console.print(
+                        f"[bold yellow] Thank You for using our tool, please join our telegram channel: @{__CHANNEL_USERNAME__}[/bold yellow]"
+                    )
                     sys.exit(0)
                 else:
                     continue
                     
-            elif service == 9:  # Account Register
+            elif service == 9:
                 console.print("[bold yellow] '[!] Registring new Account[/bold yellow]")
-                acc2_email = prompt_valid_value("[?] Account Email", "Email", password=False)
-                acc2_password = prompt_valid_value("[?] Account Password", "Password", password=False)
-                console.print("[%] Creating new Account: ", end=None)
+                acc2_email = prompt_valid_value(
+                    "[?] Account Email", "Email", password=False
+                )
+                acc2_password = prompt_valid_value(
+                    "[?] Account Password", "Password", password=False
+                )
+                console.print("[%] Creating new Account: ", end="")
                 status = cpm.register(acc2_email, acc2_password)
                 if status == 0:
                     console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                    console.print("[bold yellow] '======================================[/bold yellow]")
-                    console.print("[bold yellow] INFO: In order to tweak this account with CPM Eclipse[/bold yellow]")
-                    console.print("[bold yellow] you most sign-in to the game using this account[/bold yellow]")
+                    console.print(
+                        "[bold yellow] '======================================[/bold yellow]"
+                    )
+                    console.print(
+                        "[bold yellow] 'INFO: In order to tweak this account with CPM Eclipse[/bold yellow]"
+                    )
+                    console.print(
+                        "[bold yellow] 'you most sign-in to the game using this account[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                 elif status == 105:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] 'This email is already exists ![/bold yellow]")
+                    console.print(
+                        "[bold yellow] 'This email is already exists ![/bold yellow]"
+                    )
                     sleep(2)
                     continue
                 else:
@@ -699,14 +783,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 10:  # Delete Friends
-                console.print("[%] Deleting your Friends: ", end=None)
+            elif service == 10:
+                console.print("[%] Deleting your Friends: ", end="")
                 if cpm.delete_player_friends():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -716,15 +806,24 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 11:  # Unlock Lamborghinis
-                console.print("[!] Note: this function takes a while to complete, please don't cancel.", end=None)
-                console.print("[%] Unlocking All Lamborghinis: ", end=None)
+            elif service == 11:
+                console.print(
+                    "[!] Note: this function takes a while to complete, please don't cancel.",
+                    end="",
+                )
+                console.print("[%] Unlocking All Lamborghinis: ", end="")
                 if cpm.unlock_all_lamborghinis():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -734,14 +833,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 12:  # Unlock All Cars
-                console.print("[%] Unlocking All Cars: ", end=None)
+            elif service == 12:
+                console.print("[%] Unlocking All Cars: ", end="")
                 if cpm.unlock_all_cars():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -751,14 +856,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 13:  # Unlock All Cars Siren
-                console.print("[%] Unlocking All Cars Siren: ", end=None)
+            elif service == 13:
+                console.print("[%] Unlocking All Cars Siren: ", end="")
                 if cpm.unlock_all_cars_siren():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -768,14 +879,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 14:  # Unlock W16
-                console.print("[%] Unlocking w16 Engine: ", end=None)
+            elif service == 14:
+                console.print("[%] Unlocking w16 Engine: ", end="")
                 if cpm.unlock_w16():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -785,14 +902,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 15:  # Unlock Horns
-                console.print("[%] Unlocking All Horns: ", end=None)
+            elif service == 15:
+                console.print("[%] Unlocking All Horns: ", end="")
                 if cpm.unlock_horns():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -802,14 +925,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 16:  # Disable Damage
-                console.print("[%] Unlocking Disable Damage: ", end=None)
+            elif service == 16:
+                console.print("[%] Unlocking Disable Damage: ", end="")
                 if cpm.disable_engine_damage():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -819,14 +948,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 17:  # Unlimited Fuel
-                console.print("[%] Unlocking Unlimited Fuel: ", end=None)
+            elif service == 17:
+                console.print("[%] Unlocking Unlimited Fuel: ", end="")
                 if cpm.unlimited_fuel():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -836,14 +971,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 18:  # Unlock Houses
-                console.print("[%] Unlocking Houses: ", end=None)
+            elif service == 18:
+                console.print("[%] Unlocking Houses: ", end="")
                 if cpm.unlock_houses():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -853,14 +994,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 19:  # Unlock Smoke
-                console.print("[%] Unlocking Smoke: ", end=None)
+            elif service == 19:
+                console.print("[%] Unlocking Smoke: ", end="")
                 if cpm.unlock_smoke():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -870,14 +1017,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 20:  # Unlock Wheels
-                console.print("[%] Unlocking Wheels: ", end=None)
+            elif service == 20:
+                console.print("[%] Unlocking Wheels: ", end="")
                 if cpm.unlock_wheels():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -887,14 +1040,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 21:  # Unlock Animations
-                console.print("[%] Unlocking Animations: ", end=None)
+            elif service == 21:
+                console.print("[%] Unlocking Animations: ", end="")
                 if cpm.unlock_animations():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -904,14 +1063,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 22:  # Unlock Equipments Male
-                console.print("[%] Unlocking Equipaments Male: ", end=None)
+            elif service == 22:
+                console.print("[%] Unlocking Equipaments Male: ", end="")
                 if cpm.unlock_equipments_male():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -921,14 +1086,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 23:  # Unlock Equipments Female
-                console.print("[%] Unlocking Equipaments Female: ", end=None)
+            elif service == 23:
+                console.print("[%] Unlocking Equipaments Female: ", end="")
                 if cpm.unlock_equipments_female():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -938,17 +1109,25 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 24:  # Change Wins
-                console.print("[bold yellow] '[!] Insert how much races you win[/bold yellow]")
+            elif service == 24:
+                console.print(
+                    "[bold yellow] '[!] Insert how much races you win[/bold yellow]"
+                )
                 amount = IntPrompt.ask("[?] Amount")
-                console.print("[%] Changing your data: ", end=None)
-                if amount > 0 and amount <= 9999999999999999999:
+                console.print("[%] Changing your data: ", end="")
+                if amount > 0:
                     if cpm.set_player_wins(amount):
                         console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                        console.print("[bold yellow] '======================================[/bold yellow]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold yellow] '======================================[/bold yellow]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
@@ -959,21 +1138,31 @@ if __name__ == "__main__":
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] '[!] Please use valid values[/bold yellow]")
+                    console.print(
+                        "[bold yellow] '[!] Please use valid values[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 25:  # Change Loses
-                console.print("[bold yellow] '[!] Insert how much races you lose[/bold yellow]")
+            elif service == 25:
+                console.print(
+                    "[bold yellow] '[!] Insert how much races you lose[/bold yellow]"
+                )
                 amount = IntPrompt.ask("[?] Amount")
-                console.print("[%] Changing your data: ", end=None)
-                if amount > 0 and amount <= 9999999999999999999:
+                console.print("[%] Changing your data: ", end="")
+                if amount > 0:
                     if cpm.set_player_loses(amount):
                         console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                        console.print("[bold yellow] '======================================[/bold yellow]")
-                        answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                        console.print(
+                            "[bold yellow] '======================================[/bold yellow]"
+                        )
+                        answ = Prompt.ask(
+                            "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                        )
                         if answ == "y":
-                            console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                            console.print(
+                                "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                            )
                             sys.exit(0)
                         else:
                             continue
@@ -984,65 +1173,99 @@ if __name__ == "__main__":
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] '[!] Please use valid values[/bold yellow]")
+                    console.print(
+                        "[bold yellow] '[!] Please use valid values[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 26:  # Clone Account
-                console.print("[bold yellow] '[!] Please Enter Account Details[/bold yellow]")
-                to_email = prompt_valid_value("[?] Account Email", "Email", password=False)
-                to_password = prompt_valid_value("[?] Account Password", "Password", password=False)
-                console.print("[%] Cloning your account: ", end=None)
+            elif service == 26:
+                console.print(
+                    "[bold yellow] '[!] Please Enter Account Details[/bold yellow]"
+                )
+                to_email = prompt_valid_value(
+                    "[?] Account Email", "Email", password=False
+                )
+                to_password = prompt_valid_value(
+                    "[?] Account Password", "Password", password=False
+                )
+                console.print("[%] Cloning your account: ", end="")
                 if cpm.account_clone(to_email, to_password):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] '[!] RECEIVER ACCOUNT IS INVALID OR NOT REGISTERED[/bold yellow]")
+                    console.print(
+                        "[bold yellow] '[!] RECEIVER ACCOUNT IS INVALID OR NOT REGISTERED[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 27:  # Custom HP
-                console.print("[bold yellow][!] Note[/bold yellow]: original speed can not be restored!")
+            elif service == 27:
+                console.print(
+                    "[bold yellow][!] Note[/bold yellow]: original speed can not be restored!"
+                )
                 console.print("[bold yellow][!] Enter Car Details.[/bold yellow]")
                 car_id = IntPrompt.ask("[bold][?] Car Id[/bold]")
                 new_hp = IntPrompt.ask("[bold][?]Enter New HP[/bold]")
                 new_inner_hp = IntPrompt.ask("[bold][?]Enter New Inner Hp[/bold]")
                 new_nm = IntPrompt.ask("[bold][?]Enter New NM[/bold]")
                 new_torque = IntPrompt.ask("[bold][?]Enter New Torque[/bold]")
-                console.print("[bold yellow][%] Hacking Car Speed[/bold yellow]:", end=None)
+                console.print(
+                    "[bold yellow][%] Hacking Car Speed[/bold yellow]:", end=""
+                )
                 if cpm.hack_car_speed(car_id, new_hp, new_inner_hp, new_nm, new_torque):
                     console.print("[bold green]SUCCESFUL (✔)[/bold green]")
                     console.print("================================")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
                 else:
                     console.print("[bold red]FAILED[/bold red]")
-                    console.print("[bold yellow] '[!] Please use valid values[/bold yellow]")
+                    console.print(
+                        "[bold yellow] '[!] Please use valid values[/bold yellow]"
+                    )
                     sleep(2)
                     continue
                     
-            elif service == 28:  # Custom Angle
+            elif service == 28:
                 console.print("[bold yellow] '[!] ENTER CAR DETAILS[/bold yellow]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold yellow] '[!] ENTER STEERING ANGLE[/bold yellow]")
-                custom = IntPrompt.ask("[red][?] ENTER THE AMOUNT OF ANGLE YOU WANT[/red]")
-                console.print("[red][%] HACKING CAR ANGLE[/red]: ", end=None)
+                custom = IntPrompt.ask(
+                    "[red][?] ENTER THE AMOUNT OF ANGLE YOU WANT[/red]"
+                )
+                console.print("[red][%] HACKING CAR ANGLE[/red]: ", end="")
                 if cpm.max_max1(car_id, custom):
                     console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                    answ = Prompt.ask("[red][?] DO YOU WANT TO EXIT[/red] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[red][?] DO YOU WANT TO EXIT[/red] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1052,17 +1275,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 29:  # Custom Tire Burner
+            elif service == 29:
                 console.print("[bold yellow] '[!] ENTER CAR DETAILS[/bold yellow]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold yellow] '[!] ENTER PERCENTAGE[/bold yellow]")
                 custom = IntPrompt.ask("[pink][?] ENTER PERCENTAGE TIRES U WANT[/pink]")
-                console.print("[red][%] Setting Percentage [/red]: ", end=None)
+                console.print("[red][%] Setting Percentage [/red]: ", end="")
                 if cpm.max_max2(car_id, custom):
                     console.print("[bold yellow] 'SUCCESSFUL[/bold yellow]")
-                    answ = Prompt.ask("[bold green][?] DO YOU WANT TO EXIT[/bold green] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold green][?] DO YOU WANT TO EXIT[/bold green] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1072,17 +1301,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 30:  # Custom Car Mileage
+            elif service == 30:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold]ENTER NEW MILLAGE![/bold]")
                 custom = IntPrompt.ask("[bold blue][?] ENTER MILLAGE U WANT[/bold blue]")
-                console.print("[bold red][%] Setting Percentage [/bold red]: ", end=None)
+                console.print("[bold red][%] Setting Percentage [/bold red]: ", end="")
                 if cpm.millage_car(car_id, custom):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1092,17 +1327,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 31:  # Custom Car Brake
+            elif service == 31:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold]ENTER NEW BRAKE![/bold]")
                 custom = IntPrompt.ask("[bold blue][?] ENTER BRAKE U WANT[/bold blue]")
-                console.print("[bold red][%] Setting BRAKE [/bold red]: ", end=None)
+                console.print("[bold red][%] Setting BRAKE [/bold red]: ", end="")
                 if cpm.brake_car(car_id, custom):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1112,15 +1353,21 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 32:  # Remove Rear Bumper
+            elif service == 32:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
-                console.print("[bold red][%] Removing Rear Bumper [/bold red]: ", end=None)
+                console.print("[bold red][%] Removing Rear Bumper [/bold red]: ", end="")
                 if cpm.rear_bumper(car_id):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1130,15 +1377,21 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 33:  # Remove Front Bumper
+            elif service == 33:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
-                console.print("[bold red][%] Removing Front Bumper [/bold red]: ", end=None)
+                console.print("[bold red][%] Removing Front Bumper [/bold red]: ", end="")
                 if cpm.front_bumper(car_id):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1148,15 +1401,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 34:  # Change Password
+            elif service == 34:
                 console.print("[bold]Enter New Password![/bold]")
-                new_password = prompt_valid_value("[bold][?] Account New Password[/bold]", "Password", password=False)
-                console.print("[bold red][%] Changing Password [/bold red]: ", end=None)
+                new_password = prompt_valid_value(
+                    "[bold][?] Account New Password[/bold]", "Password", password=False
+                )
+                console.print("[bold red][%] Changing Password [/bold red]: ", end="")
                 if cpm.change_password(new_password):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white]Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white]Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1166,15 +1427,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 35:  # Change Email
+            elif service == 35:
                 console.print("[bold]Enter New Email![/bold]")
-                new_email = prompt_valid_value("[bold][?] Account New Email[/bold]", "Email")
-                console.print("[bold red][%] Changing Email [/bold red]: ", end=None)
+                new_email = prompt_valid_value(
+                    "[bold][?] Account New Email[/bold]", "Email"
+                )
+                console.print("[bold red][%] Changing Email [/bold red]: ", end="")
                 if cpm.change_email(new_email):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white]Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white]Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         break
@@ -1183,17 +1452,23 @@ if __name__ == "__main__":
                     console.print("[bold red]EMAIL IS ALREADY REGISTERED [/bold red]")
                     sleep(4)
                     
-            elif service == 36:  # Custom Spoiler
+            elif service == 36:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold]ENTER SPOILER ID![/bold]")
                 custom = IntPrompt.ask("[bold blue][?]ENTER NEW SPOILER ID[/bold blue]")
-                console.print("[bold red][%] SAVING YOUR DATA [/bold red]: ", end=None)
+                console.print("[bold red][%] SAVING YOUR DATA [/bold red]: ", end="")
                 if cpm.telmunnongodz(car_id, custom):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1203,17 +1478,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 37:  # Custom BodyKit
+            elif service == 37:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold]ENTER BODYKIT ID![/bold]")
                 custom = IntPrompt.ask("[bold blue][?]INSERT BODYKIT ID[/bold blue]")
-                console.print("[bold red][%] SAVING YOUR DATA [/bold red]: ", end=None)
+                console.print("[bold red][%] SAVING YOUR DATA [/bold red]: ", end="")
                 if cpm.telmunnongonz(car_id, custom):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1223,14 +1504,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 38:  # Unlock Premium Wheels
-                console.print("[%] Unlocking Premium Wheels..: ", end=None)
+            elif service == 38:
+                console.print("[%] Unlocking Premium Wheels..: ", end="")
                 if cpm.shittin():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1240,15 +1527,24 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 39:  # Unlock Toyota Crown
-                console.print("[!] Note: this function takes a while to complete, please don't cancel.", end=None)
-                console.print("[%] Unlocking Toyota Crown: ", end=None)
+            elif service == 39:
+                console.print(
+                    "[!] Note: this function takes a while to complete, please don't cancel.",
+                    end="",
+                )
+                console.print("[%] Unlocking Toyota Crown: ", end="")
                 if cpm.unlock_crown():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1258,14 +1554,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 40:  # Unlock Clan Hat M
-                console.print("[%] Unlocking Clan Hat: ", end=None)
+            elif service == 40:
+                console.print("[%] Unlocking Clan Hat: ", end="")
                 if cpm.unlock_hat_m():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1275,14 +1577,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 41:  # Remove Head Male
-                console.print("[%] Removing Male head: ", end=None)
+            elif service == 41:
+                console.print("[%] Removing Male head: ", end="")
                 if cpm.rmhm():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1292,14 +1600,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 42:  # Remove Head Female
-                console.print("[%] Removing Female Head: ", end=None)
+            elif service == 42:
+                console.print("[%] Removing Female Head: ", end="")
                 if cpm.rmhfm():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1309,14 +1623,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 43:  # Unlock Clan Top M
-                console.print("[%] Unlocking Clan clothes Top 1: ", end=None)
+            elif service == 43:
+                console.print("[%] Unlocking Clan clothes Top 1: ", end="")
                 if cpm.unlock_topm():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1326,14 +1646,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 44:  # Unlock Clan Top MZ
-                console.print("[%] Unlocking Clan clothes Top 1: ", end=None)
+            elif service == 44:
+                console.print("[%] Unlocking Clan clothes Top 1: ", end="")
                 if cpm.unlock_topmz():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1343,14 +1669,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 45:  # Unlock Clan Top MX
-                console.print("[%] Unlocking Clan clothes Top 3: ", end=None)
+            elif service == 45:
+                console.print("[%] Unlocking Clan clothes Top 3: ", end="")
                 if cpm.unlock_topmx():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1360,14 +1692,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 46:  # Unlock Clan Top FM
-                console.print("[%] Unlocking Clan clothes Top: ", end=None)
+            elif service == 46:
+                console.print("[%] Unlocking Clan clothes Top: ", end="")
                 if cpm.unlock_topf():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1377,14 +1715,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 47:  # Unlock Clan Top FMZ
-                console.print("[%] Unlocking Clan clothes Top 1: ", end=None)
+            elif service == 47:
+                console.print("[%] Unlocking Clan clothes Top 1: ", end="")
                 if cpm.unlock_topfz():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1394,14 +1738,20 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 48:  # Unlock Mercedes Cls
-                console.print("[%] Unlocking Mercedes Cls: ", end=None)
+            elif service == 48:
+                console.print("[%] Unlocking Mercedes Cls: ", end="")
                 if cpm.unlock_cls():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1411,36 +1761,45 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 49:  # Speed Hack All Cars
+            elif service == 49:
                 console.print("[bold]ENTER DETAILS TO MODIFY ALL CARS![/bold]")
                 new_hp = IntPrompt.ask("[bold][?] New HP entry[/bold]")
                 new_inner_hp = IntPrompt.ask("[bold][?] New internal HP input[/bold]")
                 new_nm = IntPrompt.ask("[bold][?] New entry NM[/bold]")
                 new_torque = IntPrompt.ask("[bold][?] Enter new torque[/bold]")
-                console.print("[bold red][%] modificar all cars [/bold red]: ", end=None)
+                console.print("[bold red][%] modificar all cars [/bold red]: ", end="")
                 if cpm.modificar_todos_los_autos(new_hp, new_inner_hp, new_nm, new_torque):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[bold][?]DO YOU WANT TO LEAVE?[/bold] ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[bold][?]DO YOU WANT TO LEAVE?[/bold] ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
                         console.print("thanks for using CPM Eclipse")
                         sys.exit(0)
                     else:
-                        continue
-                else:
+                        continue                else:
                     console.print("[bold red]FAILED[/bold red]")
                     console.print("[bold red]Please Try Again[/bold red]")
                     sleep(2)
                     continue
                     
-            elif service == 50:  # Unlock Paid Cars
-                console.print("[%] Unlock Paid Cars: ", end=None)
+            elif service == 50:
+                console.print("[%] Unlock Paid Cars: ", end="")
                 if cpm.unlock_paid_cars():
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1450,17 +1809,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 51:  # Stance Camber
+            elif service == 51:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 car_id = IntPrompt.ask("[bold][?] CAR ID[/bold]")
                 console.print("[bold]ENTER VALUE FOR STANCE [/bold]")
                 custom = IntPrompt.ask("[bold blue][?]INSERT VALUE[/bold blue]")
-                console.print("[bold red][%] SAVING YOUR DATA [/bold red]: ", end=None)
+                console.print("[bold red][%] SAVING YOUR DATA [/bold red]: ", end="")
                 if cpm.incline(car_id, custom):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    answ = Prompt.ask("[bold][?] DO YOU WANT TO EXIT[/bold] ?", choices=["y", "n"], default="n")
+                    answ = Prompt.ask(
+                        "[bold][?] DO YOU WANT TO EXIT[/bold] ?",
+                        choices=["y", "n"],
+                        default="n",
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
@@ -1470,17 +1835,23 @@ if __name__ == "__main__":
                     sleep(2)
                     continue
                     
-            elif service == 52:  # Copy Livery
+            elif service == 52:
                 console.print("[bold]ENTER CAR DETAILS![/bold]")
                 source_car_id = IntPrompt.ask("[bold][?] SOURCE CAR ID[/bold]")
                 target_car_id = IntPrompt.ask("[bold][?] TARGET CAR ID[/bold]")
-                console.print("[%] COPYING LIVERY, PLEASE WAIT: ", end=None)
+                console.print("[%] COPYING LIVERY, PLEASE WAIT: ", end="")
                 if cpm.copy_livery(source_car_id, target_car_id):
                     console.print("[bold green]SUCCESSFUL (✔)[/bold green]")
-                    console.print("[bold green]======================================[/bold green]")
-                    answ = Prompt.ask("[?] Do You want to Exit ?", choices=["y", "n"], default="n")
+                    console.print(
+                        "[bold green]======================================[/bold green]"
+                    )
+                    answ = Prompt.ask(
+                        "[?] Do You want to Exit ?", choices=["y", "n"], default="n"
+                    )
                     if answ == "y":
-                        console.print("[bold white] Thank You for using CPM Eclipse[/bold white]")
+                        console.print(
+                            "[bold white] Thank You for using CPM Eclipse[/bold white]"
+                        )
                         sys.exit(0)
                     else:
                         continue
