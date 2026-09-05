@@ -7,7 +7,7 @@ import json
 import os
 import datetime
 
-BOT_TOKEN = "8964642365:AAEsqDeuBtgTnNf-bCB6PlcnIR09wu9h_tA"
+BOT_TOKEN = "8964642365:AAERc2itmrQCrWjELtBp90XCL3_hjLTQn0k"
 ADMIN_ID = "6386858720"
 DATA_FILE = "users.json"
 
@@ -34,20 +34,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         }
         save_users(users)
         await update.message.reply_text(
-            f"✅ Welcome to Eclipse! 🎉\n\n"
-            f"👤 User: @{username}\n"
-            f"🆔 ID: `{user_id}`\n"
-            f"⭐ Free Points: **100**\n\n"
-            f"Contact @H3X_cpm to buy more points!",
-            parse_mode="Markdown"
+            "✅ Welcome to Eclipse! 🎉\n\n"
+            "User: @" + username + "\n"
+            "ID: " + user_id + "\n"
+            "Free Points: 100\n\n"
+            "Contact @H3X_cpm to buy more points!"
         )
     else:
         await update.message.reply_text(
-            f"✅ Welcome back! 👋\n\n"
-            f"👤 User: @{username}\n"
-            f"🆔 ID: `{user_id}`\n"
-            f"⭐ Points: **{users[user_id].get('points', 0)}**",
-            parse_mode="Markdown"
+            "✅ Welcome back! 👋\n\n"
+            "User: @" + username + "\n"
+            "ID: " + user_id + "\n"
+            "Points: " + str(users[user_id].get('points', 0))
         )
 
 async def add_points(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -58,75 +56,75 @@ async def add_points(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     
     if not context.args or len(context.args) < 2:
-        await update.message.reply_text("📋 Usage: /addpoints USER_ID AMOUNT")
+        await update.message.reply_text("Usage: /addpoints USER_ID AMOUNT")
         return
     
     target_user_id = context.args[0]
     try:
         amount = int(context.args[1])
     except:
-        await update.message.reply_text("❌ Invalid amount.")
+        await update.message.reply_text("Invalid amount.")
         return
     
     users = load_users()
     
     if target_user_id not in users:
-        await update.message.reply_text(f"❌ User {target_user_id} not found.")
+        await update.message.reply_text("User " + target_user_id + " not found.")
         return
     
     users[target_user_id]['points'] = users[target_user_id].get('points', 0) + amount
     save_users(users)
     
     await update.message.reply_text(
-        f"✅ Points Added!\n\n"
-        f"👤 User: @{users[target_user_id]['username']}\n"
-        f"📦 Added: +{amount} points\n"
-        f"⭐ New Balance: {users[target_user_id]['points']}"
+        "✅ Points Added!\n\n"
+        "User: @" + users[target_user_id]['username'] + "\n"
+        "Added: +" + str(amount) + " points\n"
+        "New Balance: " + str(users[target_user_id]['points'])
     )
 
 async def balance(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
     
     if user_id != ADMIN_ID:
-        await update.message.reply_text("❌ Admin only command.")
+        await update.message.reply_text("Admin only command.")
         return
     
     if not context.args:
-        await update.message.reply_text("📋 Usage: /balance USER_ID")
+        await update.message.reply_text("Usage: /balance USER_ID")
         return
     
     target_user_id = context.args[0]
     users = load_users()
     
     if target_user_id not in users:
-        await update.message.reply_text(f"❌ User not found.")
+        await update.message.reply_text("User not found.")
         return
     
     data = users[target_user_id]
     await update.message.reply_text(
-        f"📊 User Balance\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"👤 User: @{data['username']}\n"
-        f"⭐ Points: {data.get('points', 0)}"
+        "📊 User Balance\n"
+        "━━━━━━━━━━━━━━━━━━━━━━\n"
+        "User: @" + data['username'] + "\n"
+        "Points: " + str(data.get('points', 0))
     )
 
 async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
     
     if user_id != ADMIN_ID:
-        await update.message.reply_text("❌ Admin only command.")
+        await update.message.reply_text("Admin only command.")
         return
     
     users = load_users()
     
     if not users:
-        await update.message.reply_text("📊 No users yet.")
+        await update.message.reply_text("No users yet.")
         return
     
     msg = "📊 Registered Users\n━━━━━━━━━━━━━━━━━━━━━━\n"
     for uid, data in users.items():
-        msg += f"👤 @{data['username']} - ⭐{data.get('points', 0)} pts\n"
-        msg += f"🆔 {uid}\n━━━━━━━━━━━━━━━━━━━━━━\n"
+        msg += "User: @" + data['username'] + " - " + str(data.get('points', 0)) + " pts\n"
+        msg += "ID: " + uid + "\n━━━━━━━━━━━━━━━━━━━━━━\n"
     
     await update.message.reply_text(msg)
 
