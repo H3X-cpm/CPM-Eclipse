@@ -28,6 +28,9 @@ RGB_CYAN='\033[38;2;0;255;255m'
 # ===== LOAD VERSION =====
 VERSION="4.8.2"
 
+# ===== BOT TOKEN (Hardcoded) =====
+BOT_TOKEN="8964642365:AAEsqDeuBtgTnNf-bCB6PlcnIR09wu9h_tA"
+
 # ===== LOGIN STATUS =====
 LOGIN_FILE="$HOME/.eclipse_login"
 USER_ID_FILE="$HOME/.eclipse_user"
@@ -80,37 +83,29 @@ do_login() {
     # Generate a random login code
     LOGIN_CODE=$(date +%s | sha256sum | head -c 8)
     
-    # Send login request via Telegram bot
+    # Send login request via Telegram bot (hardcoded token)
     python3 -c "
 import requests
-import json
 
-try:
-    with open('config.json', 'r') as f:
-        config = json.load(f)
-    bot_token = config.get('bot_token', '')
-    
-    if not bot_token:
-        print('ERROR: No bot token found in config.json')
-        exit(1)
-    
-    # Send message to user
-    msg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
-    msg_data = {
-        'chat_id': '$USER_ID',
-        'text': f'🔐 **Login Request**\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:\\n\\n[✅ Confirm Login](https://t.me/ECLIPSE_BOT?start=login_$LOGIN_CODE)\\n\\n❌ If this wasn\'t you, ignore this message.',
-        'parse_mode': 'Markdown'
-    }
-    
-    response = requests.post(msg_url, data=msg_data)
-    result = response.json()
-    
-    if result.get('ok'):
-        print('SUCCESS')
-    else:
-        print('FAILED: ' + str(result))
-except Exception as e:
-    print('ERROR: ' + str(e))
+bot_token = '$BOT_TOKEN'
+user_id = '$USER_ID'
+login_code = '$LOGIN_CODE'
+
+# Send message to user
+msg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+msg_data = {
+    'chat_id': user_id,
+    'text': f'🔐 Login Request\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:\\n\\n[✅ Confirm Login](https://t.me/ECLIPSE_BOT?start=login_{login_code})\\n\\n❌ If this wasn\\'t you, ignore this message.',
+    'parse_mode': 'Markdown'
+}
+
+response = requests.post(msg_url, data=msg_data)
+result = response.json()
+
+if result.get('ok'):
+    print('SUCCESS')
+else:
+    print('FAILED: ' + str(result))
 "
     
     if [ $? -eq 0 ]; then
