@@ -28,9 +28,8 @@ RGB_CYAN='\033[38;2;0;255;255m'
 # ===== LOAD VERSION =====
 VERSION="4.8.2"
 
-# ===== BOT TOKEN (Hardcoded) =====
+# ===== BOT TOKEN (HARDCODED - NO CONFIG.JSON NEEDED) =====
 BOT_TOKEN="8964642365:AAEsqDeuBtgTnNf-bCB6PlcnIR09wu9h_tA"
-
 # ===== LOGIN STATUS =====
 LOGIN_FILE="$HOME/.eclipse_login"
 USER_ID_FILE="$HOME/.eclipse_user"
@@ -48,7 +47,7 @@ is_logged_in() {
 }
 
 # ============================================
-# TELEGRAM LOGIN FUNCTION
+# TELEGRAM LOGIN FUNCTION (NO CONFIG.JSON)
 # ============================================
 
 do_login() {
@@ -83,7 +82,7 @@ do_login() {
     # Generate a random login code
     LOGIN_CODE=$(date +%s | sha256sum | head -c 8)
     
-    # Send login request via Telegram bot (hardcoded token)
+    # Send login request via Telegram bot (hardcoded token - NO config.json)
     python3 -c "
 import requests
 
