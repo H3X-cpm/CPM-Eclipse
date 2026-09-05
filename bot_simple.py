@@ -1,8 +1,8 @@
 import asyncio
 asyncio.set_event_loop(asyncio.new_event_loop())
 
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
 import json
 import os
 import datetime
@@ -38,44 +38,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"User: @{username}\n"
             f"ID: {user_id}\n"
             f"Free Points: 100\n\n"
-            f"Contact @H3X_cpm to buy more points!"
+            f"📋 To login to Eclipse:\n"
+            f"1. Run ./eclipse.sh in Termux\n"
+            f"2. Enter this User ID: {user_id}\n"
+            f"3. Start using cheats!\n\n"
+            f"📩 Contact @H3X_cpm to buy more points!"
         )
     else:
         await update.message.reply_text(
             f"✅ Welcome back! 👋\n\n"
             f"User: @{username}\n"
             f"ID: {user_id}\n"
-            f"Points: {users[user_id].get('points', 0)}"
+            f"Points: {users[user_id].get('points', 0)}\n\n"
+            f"📋 To login to Eclipse:\n"
+            f"1. Run ./eclipse.sh in Termux\n"
+            f"2. Enter your User ID\n"
+            f"3. Start using cheats!"
         )
-
-async def login_confirm(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Handle login confirmation button - SIMPLE VERSION"""
-    query = update.callback_query
-    await query.answer()
-    
-    # Get the login code from the callback data
-    code = query.data.replace("login_", "")
-    
-    # Create the confirmation file - EXACT path eclipse.sh expects
-    file_path = f"/tmp/login_{code}.confirmed"
-    with open(file_path, "w") as f:
-        f.write("confirmed")
-    
-    # Send confirmation message
-    await query.edit_message_text(
-        "✅ **Login Confirmed!** 🎉\n\n"
-        "You have successfully logged in to Eclipse.\n"
-        "🔐 Your session is now active.\n\n"
-        "You can now use the tool in Termux."
-    )
-    
-    # Also print to console so we know it worked
-    print(f"✅ Login confirmed for code: {code}")
-
-async def login_deny(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-    await query.edit_message_text("❌ **Login Denied**\n\nIf this wasn't you, your account is safe.")
 
 async def add_points(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
@@ -127,6 +106,7 @@ async def list_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg = "📊 Registered Users\n━━━━━━━━━━━━━━━━━━━━━━\n"
     for uid, data in users.items():
         msg += f"👤 @{data['username']} - ⭐{data.get('points', 0)} pts\n"
+        msg += f"🆔 {uid}\n━━━━━━━━━━━━━━━━━━━━━━\n"
     await update.message.reply_text(msg)
 
 def main():
@@ -135,9 +115,7 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("addpoints", add_points))
     app.add_handler(CommandHandler("balance", balance))
-    app.add_handler(CommandHandler("listusers", list_users))
-    app.add_handler(CallbackQueryHandler(login_confirm, pattern="login_"))
-    app.add_handler(CallbackQueryHandler(login_deny, pattern="login_deny_"))
+    app.add_handler(CommandHandler("list_users", list_users))
     
     print("🌙 Eclipse Bot is running!")
     print("📱 Open Telegram and send /start")
