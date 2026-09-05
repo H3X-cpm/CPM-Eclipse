@@ -30,6 +30,7 @@ VERSION="4.8.2"
 
 # ===== BOT TOKEN (HARDCODED - NO CONFIG.JSON NEEDED) =====
 BOT_TOKEN="8964642365:AAH2U6Uyfd1oIAMVa4GsysrbrUlT558Y_N8"
+
 # ===== LOGIN STATUS =====
 LOGIN_FILE="$HOME/.eclipse_login"
 USER_ID_FILE="$HOME/.eclipse_user"
@@ -47,7 +48,7 @@ is_logged_in() {
 }
 
 # ============================================
-# TELEGRAM LOGIN FUNCTION (NO CONFIG.JSON)
+# TELEGRAM LOGIN FUNCTION
 # ============================================
 
 do_login() {
@@ -69,7 +70,7 @@ do_login() {
         fi
     else
         echo -e "${YELLOW}📝 Enter your Telegram User ID:${NC}"
-        echo -e "${CYAN}💡 Send /start to @ECLIPSE_BOT to get your ID${NC}"
+        echo -e "${CYAN}💡 Send /start to @CPM_Eclipse_Bot to get your ID${NC}"
         echo -ne "${GREEN}➜ User ID: ${NC}"
         read -r USER_ID
         echo "$USER_ID" > "$USER_ID_FILE"
@@ -82,7 +83,7 @@ do_login() {
     # Generate a random login code
     LOGIN_CODE=$(date +%s | sha256sum | head -c 8)
     
-    # Send login request via Telegram bot (hardcoded token - NO config.json)
+    # Send login request via Telegram bot
     python3 -c "
 import requests
 
@@ -94,7 +95,7 @@ login_code = '$LOGIN_CODE'
 msg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 msg_data = {
     'chat_id': user_id,
-    'text': f'🔐 Login Request\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:\\n\\n[✅ Confirm Login](https://t.me/ECLIPSE_BOT?start=login_{login_code})\\n\\n❌ If this wasn\\'t you, ignore this message.',
+    'text': f'🔐 Login Request\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:\\n\\n[✅ Confirm Login](https://t.me/CPM_Eclipse_Bot?start=login_{login_code})\\n\\n❌ If this wasn\\'t you, ignore this message.',
     'parse_mode': 'Markdown'
 }
 
