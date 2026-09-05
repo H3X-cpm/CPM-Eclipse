@@ -45,7 +45,7 @@ is_logged_in() {
 }
 
 # ============================================
-# LOGIN FUNCTION
+# TELEGRAM LOGIN FUNCTION
 # ============================================
 
 do_login() {
@@ -58,28 +58,88 @@ do_login() {
     if [ -f "$USER_ID_FILE" ]; then
         USER_ID=$(cat "$USER_ID_FILE")
         echo -e "${GREEN}✅ User ID found: $USER_ID${NC}"
+        echo -e "${YELLOW}Press Enter to continue, or type a new ID${NC}"
+        echo -ne "${GREEN}➜ User ID [${USER_ID}]: ${NC}"
+        read -r input_id
+        if [ ! -z "$input_id" ]; then
+            USER_ID="$input_id"
+            echo "$USER_ID" > "$USER_ID_FILE"
+        fi
     else
         echo -e "${YELLOW}📝 Enter your Telegram User ID:${NC}"
-        echo -e "${CYAN}💡 Get your ID from @ECLIPSE_BOT (send /start)${NC}"
+        echo -e "${CYAN}💡 Send /start to @ECLIPSE_BOT to get your ID${NC}"
+        echo -ne "${GREEN}➜ User ID: ${NC}"
         read -r USER_ID
         echo "$USER_ID" > "$USER_ID_FILE"
         echo -e "${GREEN}✅ User ID saved!${NC}"
     fi
     
     echo ""
-    echo -e "${CYAN}🔐 Verifying...${NC}"
-    sleep 1
+    echo -e "${CYAN}📤 Sending login request to Telegram...${NC}"
     
-    if [ -f "$LOGIN_FILE" ]; then
-        echo -e "${GREEN}✅ Login successful!${NC}"
-        sleep 1
-        return 0
+    # Generate a random login code
+    LOGIN_CODE=$(date +%s | sha256sum | head -c 8)
+    
+    # Send login request via Telegram bot
+    python3 -c "
+import requests
+import json
+
+try:
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    bot_token = config.get('bot_token', '')
+    
+    if not bot_token:
+        print('ERROR: No bot token found in config.json')
+        exit(1)
+    
+    # Send message to user
+    msg_url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+    msg_data = {
+        'chat_id': '$USER_ID',
+        'text': f'🔐 **Login Request**\\n\\nSomeone is trying to log in to Eclipse.\\n\\nClick the button below to confirm:\\n\\n[✅ Confirm Login](https://t.me/ECLIPSE_BOT?start=login_$LOGIN_CODE)\\n\\n❌ If this wasn\'t you, ignore this message.',
+        'parse_mode': 'Markdown'
+    }
+    
+    response = requests.post(msg_url, data=msg_data)
+    result = response.json()
+    
+    if result.get('ok'):
+        print('SUCCESS')
+    else:
+        print('FAILED: ' + str(result))
+except Exception as e:
+    print('ERROR: ' + str(e))
+"
+    
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✅ Login request sent!${NC}"
+        echo -e "${YELLOW}💡 Check your Telegram for a login confirmation!${NC}"
+        echo ""
+        echo -e "${CYAN}⏳ Waiting for confirmation...${NC}"
+        
+        # Wait for user to confirm on Telegram
+        for i in {1..30}; do
+            sleep 1
+            if [ -f "/tmp/login_$LOGIN_CODE.confirmed" ]; then
+                echo -e "${GREEN}✅ Login confirmed via Telegram!${NC}"
+                rm -f "/tmp/login_$LOGIN_CODE.confirmed"
+                echo "$USER_ID" > "$USER_ID_FILE"
+                echo '{"logged_in": true}' > "$LOGIN_FILE"
+                return 0
+            fi
+            echo -ne "${CYAN}.${NC}"
+        done
+        
+        echo ""
+        echo -e "${RED}❌ Login timeout! Please try again.${NC}"
     else
-        echo -e "${RED}❌ Login failed!${NC}"
-        rm -f "$LOGIN_FILE"
-        sleep 2
-        return 1
+        echo -e "${RED}❌ Failed to send login request.${NC}"
+        echo -e "${YELLOW}💡 Make sure the bot is running.${NC}"
     fi
+    
+    return 1
 }
 
 # ============================================
@@ -152,7 +212,7 @@ main_menu() {
             echo -e "${CYAN}${BOLD}╔════════════════════════════════════════════╗${NC}"
             echo -e "${PURPLE}${BOLD}║            MAIN MENU                      ║${NC}"
             echo -e "${CYAN}${BOLD}╠════════════════════════════════════════════╣${NC}"
-            echo -e "${GREEN}${BOLD}║ 1. 🔐 Login                             ║${NC}"
+            echo -e "${GREEN}${BOLD}║ 1. 🔐 Login via Telegram                ║${NC}"
             echo -e "${RED}${BOLD}║ 2. ❌ Exit                               ║${NC}"
             echo -e "${CYAN}${BOLD}╚════════════════════════════════════════════╝${NC}"
             echo ""
@@ -164,48 +224,16 @@ main_menu() {
                 *) echo -e "${RED}❌ Invalid option!${NC}"; sleep 1 ;;
             esac
         else
-            echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════════════════════════════════════╗${NC}"
-            echo -e "${PURPLE}${BOLD}║                          ECLIPSE MENU                                  ║${NC}"
-            echo -e "${CYAN}${BOLD}╠══════════════════════════════════════════════════════════════════════════╣${NC}"
-            echo -e "${GREEN}${BOLD}║  💰 MONEY & COINS                    │  🔓 UNLOCKABLES                  ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║  1. Set Money (10 pts)               │  9. Unlock All Cars (50 pts)    ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  2. Set Coins (10 pts)               │ 10. Unlock Lamborghinis (30)    ║${NC}"
-            echo -e "${YELLOW}${BOLD}║                                     │ 11. Unlock Paid Cars (40 pts)   ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  👤 ACCOUNT                         │ 12. Unlock W16 Engine (25 pts)  ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║  3. Set Name (5 pts)                │ 13. Unlock All Horns (20 pts)   ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  4. Set ID (5 pts)                  │ 14. Unlock Houses (25 pts)      ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  5. Set King Rank (20 pts)          │ 15. Unlock Smoke (20 pts)       ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  6. Clone Account (70 pts)          │ 16. Unlock Wheels (20 pts)      ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  7. Change Email (10 pts)           │ 17. Unlock Animations (15 pts)  ║${NC}"
-            echo -e "${YELLOW}${BOLD}║  8. Change Password (10 pts)        │ 18. Unlock Crown (15 pts)       ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║  🏁 RACING                          │ 19. Unlock CLS (25 pts)         ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 20. Set Race Wins (15 pts)          │ 21. Unlock Siren Cars (35 pts)  ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 22. Set Race Loses (15 pts)         │                                 ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║  🚗 CAR MODS                        │ 🔧 CUSTOM CAR                   ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 23. Hack Car Speed (25 pts)         │ 30. Custom HP (15 pts)          ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 24. Speed All Cars (50 pts)         │ 31. Custom Angle (10 pts)       ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 25. Modify All Cars (75 pts)        │ 32. Custom Tire (10 pts)        ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 26. Copy Livery (20 pts)            │ 33. Custom Mileage (10 pts)     ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 27. Remove Bumpers (15 pts)         │ 34. Custom Brake (10 pts)       ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 28. Stance Camber (10 pts)          │ 35. Rear Bumper (10 pts)        ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║  👕 CUSTOMIZATION                   │ 36. Front Bumper (10 pts)       ║${NC}"
-            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 37. Male Equipment (15 pts)         │ 43. Delete Friends (5 pts)      ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 38. Female Equipment (15 pts)       │ 44. Set Plates (10 pts)         ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 39. Male Hats (10 pts)              │ 45. Delete Account (Free)       ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 40. Male Tops (10 pts)              │ 46. Register Account (Free)     ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 41. Female Tops (10 pts)            │ 47. Get Player Stats (Free)     ║${NC}"
-            echo -e "${YELLOW}${BOLD}║ 42. Remove Male Head (10 pts)       │                                 ║${NC}"
-            echo -e "${CYAN}${BOLD}╠══════════════════════════════════════════════════════════════════════════╣${NC}"
-            echo -e "${RED}${BOLD}║ 0. Exit                                    │ 99. 🚪 Logout                 ║${NC}"
-            echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════════════════════════════════════╝${NC}"
+            echo -e "${CYAN}${BOLD}╔════════════════════════════════════════════╗${NC}"
+            echo -e "${PURPLE}${BOLD}║            ECLIPSE MENU                  ║${NC}"
+            echo -e "${CYAN}${BOLD}╠════════════════════════════════════════════╣${NC}"
+            echo -e "${GREEN}${BOLD}║ 1. 💰 Set Money (10 pts)                ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 2. ⭐ Set Coins (10 pts)                ║${NC}"
+            echo -e "${BLUE}${BOLD}║ 3. 👤 Set Name (5 pts)                 ║${NC}"
+            echo -e "${PURPLE}${BOLD}║ 4. 🔓 Unlock All Cars (50 pts)         ║${NC}"
+            echo -e "${CYAN}${BOLD}║ 5. 📊 Get Player Stats (Free)          ║${NC}"
+            echo -e "${RED}${BOLD}║ 0. Exit                               ║${NC}"
+            echo -e "${CYAN}${BOLD}╚════════════════════════════════════════════╝${NC}"
             echo ""
             echo -ne "${GREEN}➜ Select option: ${NC}"
             read -r choice
@@ -214,50 +242,8 @@ main_menu() {
                 1) clear; run_cheat "money" ;;
                 2) clear; run_cheat "coins" ;;
                 3) clear; run_cheat "name" ;;
-                4) clear; run_cheat "id" ;;
-                5) clear; run_cheat "rank" ;;
-                6) clear; run_cheat "clone" ;;
-                7) clear; run_cheat "change_email" ;;
-                8) clear; run_cheat "change_password" ;;
-                9) clear; run_cheat "all_cars" ;;
-                10) clear; run_cheat "lamborghinis" ;;
-                11) clear; run_cheat "paid_cars" ;;
-                12) clear; run_cheat "w16" ;;
-                13) clear; run_cheat "horns" ;;
-                14) clear; run_cheat "houses" ;;
-                15) clear; run_cheat "smoke" ;;
-                16) clear; run_cheat "wheels" ;;
-                17) clear; run_cheat "animations" ;;
-                18) clear; run_cheat "crown" ;;
-                19) clear; run_cheat "cls" ;;
-                20) clear; run_cheat "wins" ;;
-                21) clear; run_cheat "siren" ;;
-                22) clear; run_cheat "loses" ;;
-                23) clear; run_cheat "hack_speed" ;;
-                24) clear; run_cheat "speed_all" ;;
-                25) clear; run_cheat "modify_all" ;;
-                26) clear; run_cheat "copy_livery" ;;
-                27) clear; run_cheat "remove_bumpers" ;;
-                28) clear; run_cheat "stance" ;;
-                30) clear; run_cheat "max_max1" ;;
-                31) clear; run_cheat "max_max2" ;;
-                32) clear; run_cheat "millage" ;;
-                33) clear; run_cheat "brake" ;;
-                34) clear; run_cheat "rear_bumper" ;;
-                35) clear; run_cheat "front_bumper" ;;
-                36) clear; run_cheat "male_equip" ;;
-                37) clear; run_cheat "female_equip" ;;
-                38) clear; run_cheat "hat_m" ;;
-                39) clear; run_cheat "top_m" ;;
-                40) clear; run_cheat "top_f" ;;
-                41) clear; run_cheat "rmhm" ;;
-                42) clear; run_cheat "rmhfm" ;;
-                43) clear; run_cheat "delete_friends" ;;
-                44) clear; run_cheat "plates" ;;
-                45) clear; run_cheat "delete" ;;
-                46) clear; run_cheat "register" ;;
-                47) clear; run_cheat "stats" ;;
-                99) do_logout; clear; banner; echo -e "${GREEN}✅ Logged out!${NC}"; sleep 1 ;;
+                4) clear; run_cheat "all_cars" ;;
+                5) clear; python main.py --mode stats; echo ""; echo -e "${PURPLE}Press Enter...${NC}"; read -r ;;
                 0) clear; echo -e "${GREEN}👋 Goodbye!${NC}"; exit 0 ;;
                 *) echo -e "${RED}❌ Invalid option!${NC}"; sleep 1 ;;
             esac
