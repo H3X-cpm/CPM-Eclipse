@@ -1,9 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # ============================================
-# CPM ECLIPSE - Main Launcher
+# ECLIPSE - Main Launcher
 # Version: 4.8.2
-# Author: H3X
 # ============================================
 
 # ===== COLORS =====
@@ -17,8 +16,6 @@ WHITE='\033[1;37m'
 NC='\033[0m'
 BOLD='\033[1m'
 BLINK='\033[5m'
-UNDERLINE='\033[4m'
-REVERSE='\033[7m'
 
 # ===== RGB COLORS =====
 RGB_RED='\033[38;2;255;0;0m'
@@ -27,119 +24,112 @@ RGB_BLUE='\033[38;2;0;0;255m'
 RGB_YELLOW='\033[38;2;255;255;0m'
 RGB_PURPLE='\033[38;2;255;0;255m'
 RGB_CYAN='\033[38;2;0;255;255m'
-RGB_ORANGE='\033[38;2;255;165;0m'
-RGB_PINK='\033[38;2;255;105;180m'
-
-# ===== LOAD CONFIG =====
-if [ -f config.json ]; then
-    ADMIN_USERNAME=$(grep -o '"admin_username":"[^"]*"' config.json | cut -d'"' -f4)
-else
-    ADMIN_USERNAME="@H3X_cpm"
-fi
 
 # ===== LOAD VERSION =====
-if [ -f version.txt ]; then
-    VERSION=$(grep "CPM Eclipse" version.txt | head -1 | cut -d'v' -f2)
-else
-    VERSION="4.8.2"
-fi
+VERSION="4.8.2"
+
+# ===== LOGIN STATUS =====
+LOGIN_FILE="$HOME/.eclipse_login"
+USER_ID_FILE="$HOME/.eclipse_user"
 
 # ============================================
-# FUNCTIONS
+# CHECK IF LOGGED IN
 # ============================================
 
-# Rainbow Text
-rainbow_text() {
-    local text="$1"
-    local colors=($RGB_RED $RGB_YELLOW $RGB_GREEN $RGB_CYAN $RGB_BLUE $RGB_PURPLE)
-    local len=${#text}
-    for ((i=0; i<len; i++)); do
-        echo -ne "${colors[i % 6]}${text:$i:1}"
-    done
-    echo -e "${NC}"
-}
-
-# Typewriter Effect
-typewriter() {
-    local text="$1"
-    local delay=${2:-0.03}
-    for ((i=0; i<${#text}; i++)); do
-        echo -n "${text:$i:1}"
-        sleep $delay
-    done
-    echo ""
-}
-
-# Progress Bar
-progress_bar() {
-    local duration=$1
-    local width=40
-    local progress=0
-    
-    echo -ne "${CYAN}Loading: [${NC}"
-    for ((i=0; i<width; i++)); do echo -ne " "; done
-    echo -ne "${CYAN}] 0%${NC}\r"
-    
-    for ((i=1; i<=duration; i++)); do
-        sleep 0.05
-        progress=$((i * 100 / duration))
-        filled=$((progress * width / 100))
-        echo -ne "${CYAN}Loading: [${NC}"
-        for ((j=0; j<filled; j++)); do echo -ne "${GREEN}#${NC}"; done
-        for ((j=filled; j<width; j++)); do echo -ne " "; done
-        echo -ne "${CYAN}] ${progress}%${NC}\r"
-    done
-    echo ""
-}
-
-# ===== BANNER =====
-banner() {
-    clear
-    echo ""
-    echo -e "${RGB_RED}╔══════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${RGB_YELLOW}║                                                          ║${NC}"
-    echo -e "${RGB_GREEN}║    ██████╗ ██████╗ ███╗   ███╗    ███████╗ ██████╗     ║${NC}"
-    echo -e "${RGB_CYAN}║   ██╔════╝██╔═══██╗████╗ ████║    ██╔════╝██╔════╝     ║${NC}"
-    echo -e "${RGB_BLUE}║   ██║     ██║   ██║██╔████╔██║    █████╗  ██║          ║${NC}"
-    echo -e "${RGB_PURPLE}║   ██║     ██║   ██║██║╚██╔╝██║    ██╔══╝  ██║          ║${NC}"
-    echo -e "${RGB_RED}║   ╚██████╗╚██████╔╝██║ ╚═╝ ██║    ███████╗╚██████╗     ║${NC}"
-    echo -e "${RGB_YELLOW}║    ╚═════╝ ╚═════╝ ╚═╝     ╚═╝    ╚══════╝ ╚═════╝     ║${NC}"
-    echo -e "${RGB_GREEN}║                                                          ║${NC}"
-    echo -e "${RGB_CYAN}║                 CAR PARKING MULTIPLAYER                  ║${NC}"
-    echo -e "${RGB_BLUE}║                    ADVANCED TOOL                         ║${NC}"
-    echo -e "${RGB_PURPLE}║                                                          ║${NC}"
-    echo -e "${RGB_YELLOW}║                  Version $VERSION                       ║${NC}"
-    echo -e "${RGB_PINK}║                  Support: $ADMIN_USERNAME                ║${NC}"
-    echo -e "${RGB_RED}║                                                          ║${NC}"
-    echo -e "${RGB_RED}╚══════════════════════════════════════════════════════════╝${NC}"
-    echo ""
-}
-
-# ===== CHECK AUTH =====
-check_auth() {
-    echo -e "${CYAN}🔐 Checking authentication...${NC}"
-    
-    if [ -f ~/.cpm_eclipse_user ]; then
-        USER_ID=$(cat ~/.cpm_eclipse_user)
-        echo -e "${GREEN}✅ Welcome back! User ID: $USER_ID${NC}"
+is_logged_in() {
+    if [ -f "$LOGIN_FILE" ]; then
+        return 0
     else
-        echo -e "${YELLOW}📝 First time use!${NC}"
-        echo -e "${CYAN}Please enter your Telegram User ID:${NC}"
+        return 1
+    fi
+}
+
+# ============================================
+# LOGIN FUNCTION
+# ============================================
+
+do_login() {
+    clear
+    echo -e "${CYAN}${BOLD}╔════════════════════════════════════════════╗${NC}"
+    echo -e "${PURPLE}${BOLD}║              LOGIN REQUIRED               ║${NC}"
+    echo -e "${CYAN}${BOLD}╚════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    if [ -f "$USER_ID_FILE" ]; then
+        USER_ID=$(cat "$USER_ID_FILE")
+        echo -e "${GREEN}✅ User ID found: $USER_ID${NC}"
+    else
+        echo -e "${YELLOW}📝 Enter your Telegram User ID:${NC}"
+        echo -e "${CYAN}💡 Get your ID from @ECLIPSE_BOT (send /start)${NC}"
         read -r USER_ID
-        echo "$USER_ID" > ~/.cpm_eclipse_user
+        echo "$USER_ID" > "$USER_ID_FILE"
         echo -e "${GREEN}✅ User ID saved!${NC}"
     fi
+    
+    echo ""
+    echo -e "${CYAN}🔐 Verifying...${NC}"
+    sleep 1
+    
+    if [ -f "$LOGIN_FILE" ]; then
+        echo -e "${GREEN}✅ Login successful!${NC}"
+        sleep 1
+        return 0
+    else
+        echo -e "${RED}❌ Login failed!${NC}"
+        rm -f "$LOGIN_FILE"
+        sleep 2
+        return 1
+    fi
+}
+
+# ============================================
+# LOGOUT FUNCTION
+# ============================================
+
+do_logout() {
+    rm -f "$LOGIN_FILE"
+    echo -e "${GREEN}✅ Logged out successfully!${NC}"
     sleep 1
 }
 
-# ===== RUN CHEAT =====
+# ============================================
+# BANNER
+# ============================================
+
+banner() {
+    clear
+    echo ""
+    echo -e "${CYAN}╔════════════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}║            🌙 ECLIPSE v${VERSION}              ║${NC}"
+    echo -e "${CYAN}║    Advanced Car Parking Tool            ║${NC}"
+    echo -e "${PURPLE}║    Support: @H3X_cpm                     ║${NC}"
+    
+    if is_logged_in; then
+        echo -e "${GREEN}║    Status: ✅ Logged In                  ║${NC}"
+    else
+        echo -e "${RED}║    Status: ❌ Not Logged In              ║${NC}"
+    fi
+    
+    echo -e "${CYAN}╚════════════════════════════════════════════╝${NC}"
+    echo ""
+}
+
+# ============================================
+# RUN CHEAT
+# ============================================
+
 run_cheat() {
     local cheat_type=$1
     
-    echo -e "${CYAN}🚀 Launching $cheat_type...${NC}"
-    progress_bar 15
+    if ! is_logged_in; then
+        echo -e "${RED}❌ Please login first!${NC}"
+        sleep 1
+        return
+    fi
     
-    python main.py --mode "$cheat_type" --user "$USER_ID"
+    echo -e "${CYAN}🚀 Launching $cheat_type...${NC}"
+    
+    python main.py --mode "$cheat_type"
     
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✅ $cheat_type applied successfully!${NC}"
@@ -150,86 +140,128 @@ run_cheat() {
     sleep 2
 }
 
-# ===== MAIN MENU =====
+# ============================================
+# MAIN MENU
+# ============================================
+
 main_menu() {
     while true; do
         banner
         
-        echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════════════════════╗${NC}"
-        echo -e "${PURPLE}${BOLD}║                     MAIN MENU                          ║${NC}"
-        echo -e "${CYAN}${BOLD}╠══════════════════════════════════════════════════════════╣${NC}"
-        echo -e "${GREEN}${BOLD}║  1. 💰 Money Boost                       ║${NC}"
-        echo -e "${YELLOW}${BOLD}║  2. ⭐ XP Boost                          ║${NC}"
-        echo -e "${BLUE}${BOLD}║  3. 🚗 Vehicle Unlock                    ║${NC}"
-        echo -e "${PURPLE}${BOLD}║  4. 🚗 Unlock All Cars                  ║${NC}"
-        echo -e "${CYAN}${BOLD}║  5. 📊 Check Stats                       ║${NC}"
-        echo -e "${RGB_PINK}${BOLD}║  6. 🔑 My Info                          ║${NC}"
-        echo -e "${RGB_ORANGE}${BOLD}║  7. 🔄 Update Script                    ║${NC}"
-        echo -e "${RGB_RED}${BOLD}║  8. ❌ Exit                               ║${NC}"
-        echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════════════════════╝${NC}"
-        echo ""
-        echo -ne "${GREEN}➜ Select option: ${NC}"
-        read -r choice
+        if ! is_logged_in; then
+            echo -e "${CYAN}${BOLD}╔════════════════════════════════════════════╗${NC}"
+            echo -e "${PURPLE}${BOLD}║            MAIN MENU                      ║${NC}"
+            echo -e "${CYAN}${BOLD}╠════════════════════════════════════════════╣${NC}"
+            echo -e "${GREEN}${BOLD}║ 1. 🔐 Login                             ║${NC}"
+            echo -e "${RED}${BOLD}║ 2. ❌ Exit                               ║${NC}"
+            echo -e "${CYAN}${BOLD}╚════════════════════════════════════════════╝${NC}"
+            echo ""
+            echo -ne "${GREEN}➜ Select option: ${NC}"
+            read -r choice
+            case $choice in
+                1) do_login ;;
+                2) clear; echo -e "${GREEN}👋 Goodbye!${NC}"; exit 0 ;;
+                *) echo -e "${RED}❌ Invalid option!${NC}"; sleep 1 ;;
+            esac
+        else
+            echo -e "${CYAN}${BOLD}╔══════════════════════════════════════════════════════════════════════════╗${NC}"
+            echo -e "${PURPLE}${BOLD}║                          ECLIPSE MENU                                  ║${NC}"
+            echo -e "${CYAN}${BOLD}╠══════════════════════════════════════════════════════════════════════════╣${NC}"
+            echo -e "${GREEN}${BOLD}║  💰 MONEY & COINS                    │  🔓 UNLOCKABLES                  ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║  1. Set Money (10 pts)               │  9. Unlock All Cars (50 pts)    ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  2. Set Coins (10 pts)               │ 10. Unlock Lamborghinis (30)    ║${NC}"
+            echo -e "${YELLOW}${BOLD}║                                     │ 11. Unlock Paid Cars (40 pts)   ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  👤 ACCOUNT                         │ 12. Unlock W16 Engine (25 pts)  ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║  3. Set Name (5 pts)                │ 13. Unlock All Horns (20 pts)   ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  4. Set ID (5 pts)                  │ 14. Unlock Houses (25 pts)      ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  5. Set King Rank (20 pts)          │ 15. Unlock Smoke (20 pts)       ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  6. Clone Account (70 pts)          │ 16. Unlock Wheels (20 pts)      ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  7. Change Email (10 pts)           │ 17. Unlock Animations (15 pts)  ║${NC}"
+            echo -e "${YELLOW}${BOLD}║  8. Change Password (10 pts)        │ 18. Unlock Crown (15 pts)       ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║  🏁 RACING                          │ 19. Unlock CLS (25 pts)         ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 20. Set Race Wins (15 pts)          │ 21. Unlock Siren Cars (35 pts)  ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 22. Set Race Loses (15 pts)         │                                 ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║  🚗 CAR MODS                        │ 🔧 CUSTOM CAR                   ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 23. Hack Car Speed (25 pts)         │ 30. Custom HP (15 pts)          ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 24. Speed All Cars (50 pts)         │ 31. Custom Angle (10 pts)       ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 25. Modify All Cars (75 pts)        │ 32. Custom Tire (10 pts)        ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 26. Copy Livery (20 pts)            │ 33. Custom Mileage (10 pts)     ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 27. Remove Bumpers (15 pts)         │ 34. Custom Brake (10 pts)       ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 28. Stance Camber (10 pts)          │ 35. Rear Bumper (10 pts)        ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║  👕 CUSTOMIZATION                   │ 36. Front Bumper (10 pts)       ║${NC}"
+            echo -e "${CYAN}${BOLD}║────────────────────────────────────────┼──────────────────────────────────║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 37. Male Equipment (15 pts)         │ 43. Delete Friends (5 pts)      ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 38. Female Equipment (15 pts)       │ 44. Set Plates (10 pts)         ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 39. Male Hats (10 pts)              │ 45. Delete Account (Free)       ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 40. Male Tops (10 pts)              │ 46. Register Account (Free)     ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 41. Female Tops (10 pts)            │ 47. Get Player Stats (Free)     ║${NC}"
+            echo -e "${YELLOW}${BOLD}║ 42. Remove Male Head (10 pts)       │                                 ║${NC}"
+            echo -e "${CYAN}${BOLD}╠══════════════════════════════════════════════════════════════════════════╣${NC}"
+            echo -e "${RED}${BOLD}║ 0. Exit                                    │ 99. 🚪 Logout                 ║${NC}"
+            echo -e "${CYAN}${BOLD}╚══════════════════════════════════════════════════════════════════════════╝${NC}"
+            echo ""
+            echo -ne "${GREEN}➜ Select option: ${NC}"
+            read -r choice
 
-        case $choice in
-            1)
-                clear
-                run_cheat "money"
-                ;;
-            2)
-                clear
-                run_cheat "rank"
-                ;;
-            3)
-                clear
-                echo -e "${BLUE}${BOLD}🚗 Enter Car ID:${NC}"
-                read -r car_id
-                run_cheat "vehicle"
-                ;;
-            4)
-                clear
-                run_cheat "all_cars"
-                ;;
-            5)
-                clear
-                echo -e "${CYAN}📊 Fetching stats...${NC}"
-                progress_bar 10
-                python main.py --mode stats --user "$USER_ID"
-                echo ""
-                echo -e "${RGB_PINK}Press Enter to continue...${NC}"
-                read -r
-                ;;
-            6)
-                clear
-                echo -e "${PURPLE}🔑 Your Info${NC}"
-                echo -e "${CYAN}════════════════════════════════════════════${NC}"
-                echo -e "${GREEN}User ID: $(cat ~/.cpm_eclipse_user 2>/dev/null || echo 'Not set')${NC}"
-                echo -e "${YELLOW}Support: $ADMIN_USERNAME${NC}"
-                echo -e "${CYAN}Version: $VERSION${NC}"
-                echo -e "${CYAN}════════════════════════════════════════════${NC}"
-                echo ""
-                echo -e "${RGB_PINK}Press Enter to continue...${NC}"
-                read -r
-                ;;
-            7)
-                clear
-                echo -e "${CYAN}🔄 Updating script...${NC}"
-                progress_bar 20
-                git pull 2>/dev/null || echo -e "${YELLOW}⚠️ Git not found, skipping update${NC}"
-                echo -e "${GREEN}✅ Update complete!${NC}"
-                sleep 1
-                ;;
-            8)
-                clear
-                echo -e "${GREEN}${BOLD}👋 Goodbye!${NC}"
-                echo -e "${PURPLE}${BLINK}✦ Thanks for using CPM Eclipse ✦${NC}"
-                exit 0
-                ;;
-            *)
-                echo -e "${RED}❌ Invalid option!${NC}"
-                sleep 1
-                ;;
-        esac
+            case $choice in
+                1) clear; run_cheat "money" ;;
+                2) clear; run_cheat "coins" ;;
+                3) clear; run_cheat "name" ;;
+                4) clear; run_cheat "id" ;;
+                5) clear; run_cheat "rank" ;;
+                6) clear; run_cheat "clone" ;;
+                7) clear; run_cheat "change_email" ;;
+                8) clear; run_cheat "change_password" ;;
+                9) clear; run_cheat "all_cars" ;;
+                10) clear; run_cheat "lamborghinis" ;;
+                11) clear; run_cheat "paid_cars" ;;
+                12) clear; run_cheat "w16" ;;
+                13) clear; run_cheat "horns" ;;
+                14) clear; run_cheat "houses" ;;
+                15) clear; run_cheat "smoke" ;;
+                16) clear; run_cheat "wheels" ;;
+                17) clear; run_cheat "animations" ;;
+                18) clear; run_cheat "crown" ;;
+                19) clear; run_cheat "cls" ;;
+                20) clear; run_cheat "wins" ;;
+                21) clear; run_cheat "siren" ;;
+                22) clear; run_cheat "loses" ;;
+                23) clear; run_cheat "hack_speed" ;;
+                24) clear; run_cheat "speed_all" ;;
+                25) clear; run_cheat "modify_all" ;;
+                26) clear; run_cheat "copy_livery" ;;
+                27) clear; run_cheat "remove_bumpers" ;;
+                28) clear; run_cheat "stance" ;;
+                30) clear; run_cheat "max_max1" ;;
+                31) clear; run_cheat "max_max2" ;;
+                32) clear; run_cheat "millage" ;;
+                33) clear; run_cheat "brake" ;;
+                34) clear; run_cheat "rear_bumper" ;;
+                35) clear; run_cheat "front_bumper" ;;
+                36) clear; run_cheat "male_equip" ;;
+                37) clear; run_cheat "female_equip" ;;
+                38) clear; run_cheat "hat_m" ;;
+                39) clear; run_cheat "top_m" ;;
+                40) clear; run_cheat "top_f" ;;
+                41) clear; run_cheat "rmhm" ;;
+                42) clear; run_cheat "rmhfm" ;;
+                43) clear; run_cheat "delete_friends" ;;
+                44) clear; run_cheat "plates" ;;
+                45) clear; run_cheat "delete" ;;
+                46) clear; run_cheat "register" ;;
+                47) clear; run_cheat "stats" ;;
+                99) do_logout; clear; banner; echo -e "${GREEN}✅ Logged out!${NC}"; sleep 1 ;;
+                0) clear; echo -e "${GREEN}👋 Goodbye!${NC}"; exit 0 ;;
+                *) echo -e "${RED}❌ Invalid option!${NC}"; sleep 1 ;;
+            esac
+        fi
     done
 }
 
@@ -240,27 +272,10 @@ main_menu() {
 main() {
     clear
     banner
-    echo -e "${CYAN}${BOLD}Initializing CPM Eclipse...${NC}"
-    progress_bar 20
-    
-    # Check if Python is installed
-    if ! command -v python &> /dev/null; then
-        echo -e "${RED}❌ Python not found!${NC}"
-        echo -e "${YELLOW}📦 Run ./install.sh first${NC}"
-        exit 1
-    fi
-    
-    # Check if main.py exists
-    if [ ! -f main.py ]; then
-        echo -e "${RED}❌ main.py not found!${NC}"
-        echo -e "${YELLOW}📦 Run ./install.sh first${NC}"
-        exit 1
-    fi
-    
-    check_auth
+    echo -e "${CYAN}Initializing Eclipse...${NC}"
+    sleep 1
     clear
     main_menu
 }
 
-# Run the script
 main
