@@ -228,7 +228,7 @@ pip install -r requirements.txt
 ---
 
 ## 📜 License
-Font steal codes or legal action will be taken.
+Dont steal codes or legal action will be taken.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
@@ -239,8 +239,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Role | Name |
 |------|------|
-| 👨‍💻 **Developer** | H3X |
-| 🤝 **Contributors** | Sami|
+| 👨‍💻 **Developer** | H3X & Sami |
+| 🤝 **Contributors** | XMB 420 |
 | ⭐ **Special Thanks** | All supporters |
 
 </div>
@@ -253,12 +253,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### If you like this project, give it a ⭐ on GitHub!
 
-[![GitHub stars](https://img.shields.io/github/stars/YOUR_USERNAME/CPM-Eclipse.svg?style=social)](https://github.com/YOUR_USERNAME/CPM-Eclipse)
-[![GitHub forks](https://img.shields.io/github/forks/YOUR_USERNAME/CPM-Eclipse.svg?style=social)](https://github.com/YOUR_USERNAME/CPM-Eclipse)
+[![GitHub stars](https://img.shields.io/github/stars/H3X-cpm/CPM-Eclipse.svg?style=social)](https://github.com/H3X-cpm/CPM-Eclipse)
+[![GitHub forks](https://img.shields.io/github/forks/H3X-cpm/CPM-Eclipse.svg?style=social)](https://github.com/H3X-cpm/CPM-Eclipse)
 
 ---
 
-**Made with ❤️ by H3X**
+**Made with ❤️ by H3X & Sami**
 
 </div>
 
@@ -266,8 +266,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎯 Quick Links
 
-- [GitHub Repository](https://github.com/YOUR_USERNAME/CPM-Eclipse)
-- [Issue Tracker](https://github.com/YOUR_USERNAME/CPM-Eclipse/issues)
+- [GitHub Repository](https://github.com/H3X-c/CPM-Eclipse)
+- [Issue Tracker](https://github.com/H3X-cpm/CPM-Eclipse/issues)
 - [Changelog](CHANGELOG.md)
 - [License](LICENSE)
 
