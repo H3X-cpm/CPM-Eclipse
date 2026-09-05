@@ -1,3 +1,6 @@
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
 import platform
 import os
 import requests
@@ -5,7 +8,6 @@ import subprocess
 import urllib.parse
 import json
 from concurrent.futures import ThreadPoolExecutor
-import ssl
 import urllib3
 
 # Disable SSL warnings
