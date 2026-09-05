@@ -20,7 +20,9 @@
 | Role | Name | Contact |
 |------|------|---------|
 | **Lead Developer** | H3X | [@H3X_cpm](https://t.me/H3X_cpm) |
-| **Co-Developer** | Sami | [@Sami](https://t.me/Sami) |
+| **Co-Developer** | Sami | [@Sami](Sami) |
+support me on Ko Fi
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/U2I826F6MQ)
 
 ---
 
